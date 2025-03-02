@@ -1,6 +1,6 @@
 import Hero from '@/app/components/Hero'
 import React from 'react'
-import Settings from './settings/page'
+import Settings from './settings'
 
 const Homepage = () => {
   return (

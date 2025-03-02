@@ -1,12 +1,14 @@
 import Hero from '@/app/components/Hero'
 import React from 'react'
-import Settings from './settings'
+// import Settings from './settings'
+import ProductGrid from '@/app/components/ProductGrid'
 
 const Homepage = () => {
   return (
     <div className='bg-texture bg-brand-pink'>
 =      <Hero/>
 {/* <Settings/> */}
+<ProductGrid/>
     </div>
   )
 }

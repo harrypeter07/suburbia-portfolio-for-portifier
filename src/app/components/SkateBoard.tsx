@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaStar } from "react-icons/fa6";
 import { ButtonLink } from "./ButtonLink";
 import { HorizontalLine, VerticalLine } from "./Line";
+import { Scribble } from "./Scribble";
 
 interface SkateBoardProps {
 	name: string;
@@ -26,6 +27,7 @@ const SkateBoard: React.FC<SkateBoardProps> = ({
 
 			<FaStar className="text-yellow-400" />
 			<div className="~mb-1 overflow-hidden py-4">
+                <Scribble className="absolute inset-0 h-full w-full " color={'#f00'}/>
 				<Image
 					src={image}
 					alt={name}

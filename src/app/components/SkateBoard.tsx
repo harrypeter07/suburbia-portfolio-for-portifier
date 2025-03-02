@@ -13,12 +13,15 @@ interface SkateBoardProps {
 	customizerLink: string;
 }
 
+
 const SkateBoard: React.FC<SkateBoardProps> = ({
 	name,
 	image,
 	price,
 	customizerLink,
 }) => {
+
+  
 	return (
 		<div className="group relative mx-auto w-full mx-w-72 px-8 pt-4">
 			<VerticalLine className="absolute top-0 h-full stroke-2 text-stone-300 transition-colors group-hover:text-stone-400 left-4" />

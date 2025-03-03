@@ -2,6 +2,7 @@ import Hero from '@/app/components/Hero'
 import React from 'react'
 // import Settings from './settings'
 import ProductGrid from '@/app/components/ProductGrid'
+import TextAndImage from '@/app/components/TextAndImage'
 
 const Homepage = () => {
   return (
@@ -9,6 +10,7 @@ const Homepage = () => {
 =      <Hero/>
 {/* <Settings/> */}
 <ProductGrid/>
+<TextAndImage/>
     </div>
   )
 }

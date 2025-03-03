@@ -10,7 +10,7 @@ const Homepage = () => {
 =      <Hero/>
 {/* <Settings/> */}
 <ProductGrid/>
-<TextAndImage/>
+<TextAndImage variation='right' theme='orange'/>
     </div>
   )
 }

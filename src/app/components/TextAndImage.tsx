@@ -1,55 +1,44 @@
-                      import React from 'react'
-import { Heading } from './Heading'
-import Image from 'next/image'
-import { ButtonLink } from './ButtonLink'
-                      
-                      const TextAndImage = () => {
-                        return (
-                            //this section should have four types of themes that will come as props , blue , orange, lime , Navy
+import React from "react";
+import clsx from "clsx";
+import { Heading } from "./Heading";
+import { ButtonLink } from "./ButtonLink";
+import { ParallaxImage } from "./ParallaxImage";
 
-                            //also two varitions one will image on left and other image on right variation 
+const TextAndImage = ({ theme = "lime", variation = "left" }) => {
+	const sectionClasses = clsx("bg-texture text-white p-8", {
+		"bg-brand-blue": theme === "blue",
+		"bg-brand-orange": theme === "orange",
+		"bg-brand-lime": theme === "lime",
+		"bg-brand-navy": theme === "navy",
+	});
 
-                            //if theme is blue then bg-color should be bg-texture bg-brand-blue and text-white
-                            //if theme is orange then bg-color should be bg-texture bg-brand-orange and text-white
-                            //if theme is lime then bg-color should be bg-texture bg-brand-lime and text-white
-                            //if theme is navy then bg-color should be bg-texture bg-brand-navy and text-white
-                          <section>
-                            
-                              <Heading as='h2'>
-                                TEXT
+	return (
+		<section className={sectionClasses}>
+			<div
+				className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24"
+			>
+				<div 
+					className={clsx(
+						"flex flex-col items-center gap-8 text-center md:items-start md:text-left", 
+						{ "md:order-2": variation === "right" }
+					)}
+				>
+					<Heading as="h2" size="lg">
+						TEXT
+					</Heading>
+					<div className="body max-w-md text-lg leading-relaxed">
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores,
+						enim?
+					</div>
+					<ButtonLink color={theme === "lime" ? "orange" : "lime"} href="/">
+						Buy Now !
+					</ButtonLink>
+				</div>
 
-                              </Heading>
+				<ParallaxImage foregroundImage="/prismic/guy-1.png" backgroundImage="/prismic/paint-background.png" />
+			</div>
+		</section>
+	);
+};
 
-                              <div className="body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, enim?
-                              </div>
-
-                              <div className="button">
-                                {/* <ButtonLink href='/'>
-                                            Buy
-                                </ButtonLink> */}
-                              </div>
-
-                              <div className="bgImage">
-                                <Image
-                                src="/prismic/paint-background.png"
-                                height={300}
-                                width={300}
-                                alt='bg-imagee'/>
-                              </div>
-
-                              <div className="foreGroundImage">
-                              <Image
-                                src="/prismic/guy-1.png"
-                                height={300}
-                                width={300}
-                                alt='bg-imagee'/>
-                              </div>
-
-
-                          </section>
-                        )
-                      }
-                      
-                      export default TextAndImage
-                                                                                                                        
+export default TextAndImage;

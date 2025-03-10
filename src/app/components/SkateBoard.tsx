@@ -56,7 +56,7 @@ const SkateBoard: React.FC<SkateBoardProps> = ({
 						size="sm"
 						className="mt-2 block"
 					>
-						Customize
+						Customizeee
 					</ButtonLink>
 				</div>
 			</div>

@@ -9,7 +9,7 @@ const ProductGrid: React.FC = () => {
         <Heading className="mb-5 text-center ~mb-4/6" as="h2">Latest Drops</Heading>
         <div className="text-center ~mb-6/10">Grab the best deals on our latest skateboard collection.
         </div>
-    <div className="w-full gap-4 md:grid-cols-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="w-full gap-5 md:grid-cols-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {skateboardData.map((board, index) => (
         <SkateBoard
           key={index}

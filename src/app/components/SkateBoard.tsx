@@ -23,7 +23,7 @@ const SkateBoard: React.FC<SkateBoardProps> = ({
 
   
 	return (
-		<div className="group relative mx-auto w-full mx-w-72 px-8 pt-4">
+		<div className="group relative mx-auto w-full mx-w-72 px-8 pt-4 mb-12">
 			<VerticalLine className="absolute top-0 h-full stroke-2 text-stone-300 transition-colors group-hover:text-stone-400 left-4" />
 			<VerticalLine className="absolute top-0 h-full stroke-2 text-stone-300 transition-colors group-hover:text-stone-400 right-4" />
 			<HorizontalLine className="-mx-8 stroke-2 text-stone-300 transition-colors group-hover:text-stone-400" />

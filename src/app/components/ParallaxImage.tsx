@@ -73,8 +73,8 @@ export  function ParallaxImage({
                 <div ref={foregroundImageRef} className="foreGroundImage col-start-1 row-start-1 transition-transform h-full w-full place-items-center">
 					<Image
 						src={foregroundImage}
-						height={500}
-						width={500}
+						height={450}
+						width={450}
 						alt="bg-image"
 					/>
 				</div>

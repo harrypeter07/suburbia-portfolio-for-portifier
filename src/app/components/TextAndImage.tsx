@@ -13,9 +13,9 @@ const TextAndImage = ({ theme = "lime", variation = "left" }) => {
 	});
 
 	return (
-		<section className={sectionClasses}>
+		<section className={`${sectionClasses} scroll-smooth`}>
 			<div
-				className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24"
+				className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24 scroll-smooth"
 			>
 				<div 
 					className={clsx(

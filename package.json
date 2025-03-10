@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@studio-freight/lenis": "^1.0.42",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.4.11",
     "next": "15.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -5,7 +5,7 @@ import skateboardData from "@/data/skateboardData";
 import { Heading } from "./Heading";
 const ProductGrid: React.FC = () => {
   return (
-    <section className="relative text-zinc-800 bg-texture bg-brand-gray">
+    <section className="relative text-zinc-800 bg-texture bg-brand-gray  max-sm:mb-32 max-md:mb-32">
         <Heading className="mb-5 text-center ~mb-4/6" as="h2">Latest Drops</Heading>
         <div className="text-center ~mb-6/10">Grab the best deals on our latest skateboard collection.
         </div>

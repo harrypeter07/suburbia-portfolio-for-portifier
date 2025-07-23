@@ -1,17 +1,18 @@
 // data/navigationData.ts
 export const navigationData = {
-    title: "SkateBoards",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, quisquam?",
-    image: {
-      src: "/prismic/Suburbia-OG.png",
-      alt: "skateboard",
-      width: 500,
-      height: 500,
-    },
-    navigation: [
-      { text: "Team", link: "/" },
-      { text: "Customizer", link: "/build" },
-      { text: "About", link: "/about" },
-    ],
-  };
-  
+	title: "My Portfolio",
+	description:
+		"Welcome to my personal portfolio website. Explore my projects, learn about me, and get in touch!",
+	image: {
+		src: "/prismic/thank-you-complete.png", // Placeholder, update as needed
+		alt: "portfolio",
+		width: 500,
+		height: 500,
+	},
+	navigation: [
+		{ text: "Home", link: "/" },
+		{ text: "Projects", link: "/#projects" },
+		{ text: "About", link: "/about" },
+		{ text: "Contact", link: "/#contact" },
+	],
+};

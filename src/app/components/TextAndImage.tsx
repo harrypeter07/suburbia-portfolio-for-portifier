@@ -22,8 +22,8 @@ const TextAndImage = ({
 	text = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, enim?",
 	buttonText = "Buy Now !",
 	buttonLink = "/",
-	imageForeground = "/prismic/guy-1.png",
-	imageBackground = "/prismic/paint-background.png",
+	imageForeground = "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+	imageBackground = "https://images.unsplash.com/photo-1465101046530-73398c7f28ca",
 }: TextAndImageProps) => {
 	const sectionClasses = clsx("bg-texture text-white p-8", {
 		"bg-brand-blue": theme === "blue",

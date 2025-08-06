@@ -1,8 +1,9 @@
-import Script from "next/script";
-("use client");
+"use client";
 import React from "react";
 import { Heading } from "./Heading";
 import { ButtonLink } from "./ButtonLink";
+
+import Image from "next/image";
 
 const Hero = () => {
 	return (
@@ -36,16 +37,23 @@ const Hero = () => {
 							</ButtonLink>
 						</div>
 					</div>
-					{/* Spline Web Viewer (small) */}
-					<Script
-						type="module"
-						src="https://unpkg.com/@splinetool/viewer@1.10.41/build/spline-viewer.js"
+
+					{/* Interactive Image Container (replaces 3D) */}
+					<div className="flex-1 w-full max-w-xl h-[300px] min-h-[200px] max-h-[350px] flex items-center justify-center relative z-30">
+						<div
+							className="group w-full h-full flex items-center justify-center cursor-pointer transition-transform duration-300"
+							style={{ perspective: '1200px' }}
+						>
+					<Image
+						src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+						alt="Showcase"
+						width={600}
+						height={350}
+						className="rounded-2xl shadow-2xl object-cover w-full h-full max-h-[350px] max-w-xl transition-transform duration-500 group-hover:scale-105"
+						style={{ willChange: 'transform' }}
+						priority
 					/>
-					<div className="flex-1 w-full max-w-xl h-[300px] min-h-[200px] max-h-[350px] flex items-center justify-center bg-white rounded-xl shadow-lg z-10">
-						<spline-viewer
-							url="https://prod.spline.design/1sMgnGO94Nhv2WXz/scene.splinecode"
-							style={{ width: "100%", height: "100%" }}
-						></spline-viewer>
+						</div>
 					</div>
 				</div>
 			</div>

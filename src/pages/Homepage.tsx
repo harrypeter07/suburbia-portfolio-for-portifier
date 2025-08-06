@@ -5,6 +5,7 @@ import ProjectCard from "@/app/components/SkateBoard";
 import projectData from "@/data/skateboardData";
 import TextAndImage from "@/app/components/TextAndImage";
 import ParallaxSection from "@/app/components/ParallaxSection";
+import TextType from "@/app/components/TextType";
 
 interface HeadingProps {
 	as?: ElementType;
@@ -13,41 +14,37 @@ interface HeadingProps {
 	size?: "xl" | "lg" | "md" | "sm" | "xs";
 }
 
-function Heading({
-	as: Comp = "h1",
-	className,
-	children,
-	size = "lg",
-}: HeadingProps) {
-	return (
-		<Comp
-			className={[
-				"font-sans uppercase",
-				size === "xl" && "~text-4xl/8xl",
-				size === "lg" && "~text-4xl/7xl",
-				size === "md" && "~text-3xl/5xl",
-				size === "sm" && "~text-2xl/4xl",
-				size === "xs" && "~text-lg/xl",
-				className,
-			]
-				.filter(Boolean)
-				.join(" ")}
-		>
-			{children}
-		</Comp>
-	);
-}
+// Heading replaced by TextType for typing animation
 
 const Hero = () => (
-	<section className="hero relative h-dvh overflow-hidden text-zinc-800 m-6">
-		<div className="grid absolute inset-0 mx-auto mt-24 max-w-6xl grid-rows-[1fr,auto] place-items-end px-6 ~py-10/16">
-			<Heading size="lg" className="relative max-w-2xl place-self-start">
-				Hi, I&apos;m <span className="text-brand-purple">Aryan Sharma</span>
-				<br />
-				<span className="mt-6 block text-2xl font-bold">
-					Creative Developer & Designer
-				</span>
-			</Heading>
+   <section className="hero relative h-dvh overflow-hidden text-zinc-800 m-0 border-none">
+	   <div className="grid absolute inset-0 mx-auto mt-24 max-w-6xl grid-rows-[1fr,auto] place-items-end px-6 ~py-10/16">
+		   <h1 className="relative max-w-2xl place-self-start font-sans uppercase ~text-4xl/7xl">
+			   <TextType
+				   as="span"
+				   text={["Hi, I'm "]}
+				   typingSpeed={60}
+				   pauseDuration={1200}
+				   showCursor={true}
+				   className="text-zinc-900"
+			   />
+			   <TextType
+				   as="span"
+				   text={["Aryan Sharma"]}
+				   typingSpeed={60}
+				   pauseDuration={1200}
+				   showCursor={false}
+				   className="text-brand-purple"
+			   />
+		   </h1>
+		   <TextType
+			   as="span"
+			   text={["Creative Developer & Designer"]}
+			   className="mt-6 block text-2xl font-bold"
+			   typingSpeed={60}
+			   pauseDuration={2000}
+			   showCursor={false}
+		   />
 			<div className="relative flex flex-col w-full items-center justify-between ~gap-2/4 lg:flex-row">
 				<div className="max-w-[45ch] font-semibold ~text-lg/xl">
 					<p>
@@ -79,15 +76,15 @@ const Hero = () => (
 );
 
 const ProductGrid = () => (
-	<section
-		className="relative text-zinc-800 max-sm:mb-32 max-md:mb-32 py-16 px-4 overflow-hidden"
-		id="projects"
-		style={{
-			borderRadius: "2rem",
-			boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
-			minHeight: "60vh",
-		}}
-	>
+   <section
+	   className="relative text-zinc-800 max-sm:mb-32 max-md:mb-32 py-16 px-4 overflow-hidden"
+	   id="projects"
+	   style={{
+		   borderRadius: "2rem",
+		   boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
+		   minHeight: "60vh",
+	   }}
+   >
 		{/* Animated Background */}
 		<div 
 			className="absolute inset-0 animate-scroll-left"
@@ -102,14 +99,24 @@ const ProductGrid = () => (
 		{/* Overlay for better text readability */}
 		<div className="absolute inset-0 bg-black/20 rounded-2xl" />
 		
-		{/* Content */}
-		<div className="relative z-10">
-			<Heading className="mb-5 text-center ~mb-4/6 drop-shadow-lg text-white" as="h2" size="md">
-				Projects
-			</Heading>
-			<div className="text-center ~mb-6/10 text-lg font-medium text-white/90 drop-shadow">
-				Explore some of my recent work and creative projects.
-			</div>
+	   {/* Content */}
+	   <div className="relative z-10 flex flex-col items-center justify-center">
+		   <TextType
+			   as="h2"
+			   text={["PROJECTS"]}
+			   className="mb-3 text-center font-sans uppercase text-white drop-shadow-lg text-4xl md:text-5xl lg:text-6xl tracking-tight"
+			   typingSpeed={60}
+			   pauseDuration={2000}
+			   showCursor={false}
+		   />
+		   <TextType
+			   as="div"
+			   text={["Explore some of my recent work and creative projects."]}
+			   className="text-center mb-8 text-2xl md:text-3xl font-semibold text-white/90 drop-shadow"
+			   typingSpeed={40}
+			   pauseDuration={2000}
+			   showCursor={false}
+		   />
 			<div className="w-full gap-8 md:grid-cols-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-8">
 				{projectData.map((project, index) => (
 					<ProjectCard
@@ -176,7 +183,14 @@ const Homepage = () => {
 				<section className="bg-brand-lime bg-texture py-16 px-4">
 				  <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24 max-w-6xl mx-auto">
 					<div className="flex flex-col items-center md:items-start text-center md:text-left gap-8 animate-fade-in-up">
-					  <h2 className="text-4xl font-bold text-white">Contact</h2>
+				   <TextType
+					   as="h2"
+					   text={["Contact"]}
+					   className="text-4xl font-bold text-white"
+					   typingSpeed={60}
+					   pauseDuration={2000}
+					   showCursor={false}
+				   />
 					  <div className="text-lg text-white max-w-md">
 						Interested in working together, collaborating, or just want to say hi? I&apos;m always open to new opportunities and creative projects. Let&apos;s connect!
 					  </div>

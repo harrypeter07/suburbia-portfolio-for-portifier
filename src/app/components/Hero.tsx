@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Spline from "@splinetool/react-spline/next";
 import { Heading } from "./Heading";
 import { ButtonLink } from "./ButtonLink";
 

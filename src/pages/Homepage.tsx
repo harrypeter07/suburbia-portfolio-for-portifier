@@ -155,30 +155,62 @@ const Homepage = () => {
 			<Hero />
 			<ProductGrid />
 			<ParallaxSection>
-				{/* About Section */}
+				{/* About Section - Expanded */}
 				<TextAndImage
 					variation="right"
 					theme="orange"
 					heading="About Me"
 					text={
-						"I&apos;m Aryan Sharma, a passionate developer and designer based in India. I specialize in building interactive, visually stunning web applications that deliver real value. With a background in both design and engineering, I love turning ideas into delightful digital experiences."
+						"I'm Aryan Sharma, a passionate developer and designer based in India. I specialize in building interactive, visually stunning web applications that deliver real value. With a background in both design and engineering, I love turning ideas into delightful digital experiences.\n\nContact: aryan.sharma@email.com | +91-9876543210\nLocation: New Delhi, India\nExperience: 4+ years in web development\nEducation: B.Tech in Computer Science\nInterests: UI/UX, Animation, 3D, Open Source, Music, Travel."
 					}
 					buttonText="Download Resume"
 					buttonLink="/resume.pdf"
 					imageForeground="/prismic/guy-1.png"
 					imageBackground="/prismic/paint-background.png"
 				/>
-				{/* Skills Section */}
-				<TextAndImage
-					variation="left"
-					theme="blue"
-					heading="Skills"
-					text="JavaScript, TypeScript, React, Next.js, Node.js, CSS, Tailwind, Framer Motion, Three.js, Figma, UI/UX Design, Animation, Responsive Design, and more. Always learning, always building."
-					buttonText="See My Work"
-					buttonLink="#projects"
-					imageForeground="/prismic/guy-2.png"
-					imageBackground="/prismic/paint-background.png"
-				/>
+
+				{/* Skills Section - Structured & Animated */}
+				<section className="bg-brand-blue bg-texture py-16 px-4">
+					<div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24">
+						<div className="flex flex-col gap-8 animate-fade-in-up">
+							<TextType
+								as="h2"
+								text={["Skills"]}
+								className="text-4xl font-bold text-white mb-2"
+								typingSpeed={60}
+								pauseDuration={2000}
+								showCursor={false}
+							/>
+							<div className="text-lg text-white/90 max-w-md mb-4">
+								A quick overview of my technical skills and tools I use daily.
+							</div>
+							<div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+								{[
+									{ group: 'Frontend', skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'CSS3', 'HTML5'] },
+									{ group: 'Backend', skills: ['Node.js', 'Express', 'MongoDB', 'Firebase', 'REST APIs'] },
+									{ group: 'Design', skills: ['Figma', 'Adobe XD', 'UI/UX', 'Animation'] },
+									{ group: 'Tools', skills: ['Git', 'VS Code', 'Jira', 'Vercel', 'Netlify'] },
+								].map(({ group, skills }) => (
+									<div key={group} className="rounded-xl bg-white/10 p-4 shadow-lg border border-white/10 animate-fade-in-up">
+										<div className="font-bold text-brand-lime mb-2">{group}</div>
+										<ul className="space-y-1">
+											{skills.map(skill => (
+												<li key={skill} className="flex items-center gap-2">
+													<span className="inline-block w-2 h-2 rounded-full bg-brand-lime animate-pulse" />
+													<span className="text-white/90 font-medium">{skill}</span>
+												</li>
+											))}
+										</ul>
+									</div>
+								))}
+							</div>
+						</div>
+						<div className="flex justify-center items-center animate-fade-in-up">
+							import Image from "next/image";
+							<Image src="/prismic/guy-2.png" alt="Skills" width={300} height={400} className="rounded-2xl shadow-2xl w-full max-w-xs" priority />
+						</div>
+					</div>
+				</section>
 				{/* New Contact Section */}
 				<section className="bg-brand-lime bg-texture py-16 px-4">
 				  <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24 max-w-6xl mx-auto">

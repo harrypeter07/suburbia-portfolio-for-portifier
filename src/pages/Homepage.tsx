@@ -139,6 +139,8 @@ const ProductGrid = () => (
 		`}</style>
 	</section>
 );
+import ContactForm from "@/app/components/ContactForm";
+import Footer from "@/app/components/Footer";
 
 const Homepage = () => {
 	return (
@@ -170,18 +172,22 @@ const Homepage = () => {
 					imageForeground="/prismic/guy-2.png"
 					imageBackground="/prismic/paint-background.png"
 				/>
-				{/* Contact Section */}
-				<TextAndImage
-					variation="right"
-					theme="lime"
-					heading="Contact"
-					text="Interested in working together, collaborating, or just want to say hi? I'm always open to new opportunities and creative projects. Let's connect!"
-					buttonText="Email Me"
-					buttonLink="mailto:aryan.sharma@email.com"
-					imageForeground="/prismic/guy-3.png"
-					imageBackground="/prismic/paint-background.png"
-				/>
+				{/* New Contact Section */}
+				<section className="bg-brand-lime bg-texture py-16 px-4">
+				  <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24 max-w-6xl mx-auto">
+					<div className="flex flex-col items-center md:items-start text-center md:text-left gap-8 animate-fade-in-up">
+					  <h2 className="text-4xl font-bold text-white">Contact</h2>
+					  <div className="text-lg text-white max-w-md">
+						Interested in working together, collaborating, or just want to say hi? I&apos;m always open to new opportunities and creative projects. Let&apos;s connect!
+					  </div>
+					</div>
+					<div className="flex justify-center items-center animate-fade-in-up">
+					  <ContactForm />
+					</div>
+				  </div>
+				</section>
 			</ParallaxSection>
+			<Footer />
 		</div>
 	);
 };

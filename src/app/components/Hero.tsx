@@ -1,4 +1,5 @@
-"use client";
+import Script from "next/script";
+("use client");
 import React from "react";
 import { Heading } from "./Heading";
 import { ButtonLink } from "./ButtonLink";
@@ -35,7 +36,17 @@ const Hero = () => {
 							</ButtonLink>
 						</div>
 					</div>
-				   {/* 3D model removed as per user request */}
+					{/* Spline Web Viewer (small) */}
+					<Script
+						type="module"
+						src="https://unpkg.com/@splinetool/viewer@1.10.41/build/spline-viewer.js"
+					/>
+					<div className="flex-1 w-full max-w-xl h-[300px] min-h-[200px] max-h-[350px] flex items-center justify-center bg-white rounded-xl shadow-lg z-10">
+						<spline-viewer
+							url="https://prod.spline.design/1sMgnGO94Nhv2WXz/scene.splinecode"
+							style={{ width: "100%", height: "100%" }}
+						></spline-viewer>
+					</div>
 				</div>
 			</div>
 		</section>

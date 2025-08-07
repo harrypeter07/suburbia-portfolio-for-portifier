@@ -12,87 +12,90 @@ import TextType from "@/app/components/TextType";
 // Heading replaced by TextType for typing animation
 
 const Hero = () => (
-	   <section className="hero relative h-dvh overflow-hidden text-zinc-800 m-0 border-none">
-			   <div className="grid absolute inset-0 mx-auto mt-16 max-w-6xl grid-rows-[1fr,auto] place-items-end px-6 ~py-10/16 w-full h-full">
-					   <div className="flex flex-col-reverse lg:flex-row w-full h-full items-center justify-between gap-8">
-							   <div className="flex-1 flex flex-col justify-center">
-									   <div className="relative max-w-2xl place-self-start">
-											   <span className="block font-sans text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 tracking-tight">
-													   <TextType
-															   as="span"
-															   text={["Hi, my name is"]}
-															   typingSpeed={60}
-															   pauseDuration={1200}
-															   showCursor={true}
-															   className="text-white"
-													   />
-											   </span>
-											   <span className="block font-sans uppercase text-5xl md:text-7xl lg:text-8xl font-extrabold text-brand-lime drop-shadow-lg tracking-tight">
-													   <TextType
-															   as="span"
-															   text={["HASSAN MANSURI"]}
-															   typingSpeed={60}
-															   pauseDuration={1200}
-															   showCursor={false}
-															   className="text-brand-lime"
-													   />
-											   </span>
-									   </div>
-									   <TextType
-											   as="span"
-											   text={["Full Stack Engineer & UI Specialist"]}
-											   className="mt-6 block text-3xl font-bold text-brand-purple"
-											   typingSpeed={60}
-											   pauseDuration={2000}
-											   showCursor={false}
-									   />
-									   <div className="relative flex flex-col w-full items-center justify-between ~gap-2/4 lg:flex-row mt-6">
-											   <div className="max-w-[45ch] font-semibold ~text-lg/xl">
-													   <p>
-															   I build robust, scalable web applications and beautiful user
-															   interfaces. Let&apos;s create something amazing together!
-													   </p>
-											   </div>
-											   <a
-													   href="#projects"
-													   className="z-20 mt-2 block button-cutout group mx-4 inline-flex items-center bg-gradient-to-b from-25% to-75% bg-[length:100%_400%] font-bold transition-[filter,background-position] duration-300 hover:bg-bottom from-brand-purple to-brand-lime text-white hover:text-black ~text-lg/2xl ~gap-3/4 ~px-1/2 ~py-3/4"
-											   >
-													   <span className="flex size-6 items-center justify-center transition-transform group-hover:-rotate-[25deg] size-6">
-															   <svg
-																	   xmlns="http://www.w3.org/2000/svg"
-																	   fill="none"
-																	   viewBox="0 0 24 24"
-																	   width="24"
-																	   height="24"
-															   >
-																	   <path fill="currentColor" d="M12 5v14m7-7H5" />
-															   </svg>
-													   </span>
-													   <div className="w-px self-stretch bg-black/25" />
-													   View Projects
-											   </a>
-									   </div>
-							   </div>
-							   {/* Right side image with hover interaction - moved up and right */}
-							   <div className="flex-1 w-full max-w-xl h-[300px] min-h-[200px] max-h-[350px] flex items-start justify-end relative z-30" style={{ marginTop: '-40px', marginRight: '-40px' }}>
-									   <div
-											   className="group w-[90%] h-[90%] flex items-center justify-center cursor-pointer transition-transform duration-300"
-											   style={{ perspective: "1200px" }}
-									   >
-											   <Image
-													   src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80"
-													   alt="Showcase"
-													   width={350}
-													   height={350}
-													   className="rounded-2xl shadow-2xl object-cover w-full h-full max-h-[350px] max-w-xl transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3"
-													   style={{ willChange: "transform" }}
-													   priority
-											   />
-									   </div>
-							   </div>
-					   </div>
-			   </div>
-	   </section>
+	<section className="hero relative h-dvh overflow-hidden text-zinc-800 m-0 border-none">
+		<div className="grid absolute inset-0 mx-auto mt-16 max-w-6xl grid-rows-[1fr,auto] place-items-end px-6 ~py-10/16 w-full h-full">
+			<div className="flex flex-col-reverse lg:flex-row w-full h-full items-center justify-between gap-8">
+				<div className="flex-1 flex flex-col justify-center">
+					<div className="relative max-w-2xl place-self-start">
+						<span className="block font-sans text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 tracking-tight">
+							<TextType
+								as="span"
+								text={["Hi, my name is"]}
+								typingSpeed={60}
+								pauseDuration={1200}
+								showCursor={true}
+								className="text-white"
+							/>
+						</span>
+					<span className="block font-sans uppercase text-xl md:text-3xl lg:text-4xl font-extrabold text-brand-blue drop-shadow-lg tracking-tight pl-2" style={{ left: '-10px', position: 'relative' }}>
+						<TextType
+							as="span"
+							text={["HASSAN MANSURI"]}
+							typingSpeed={80}
+							pauseDuration={3000}
+							showCursor={true}
+							className="text-brand-blue"
+						/>
+					</span>
+					</div>
+					<TextType
+						as="span"
+						text={["Full Stack Engineer & UI Specialist"]}
+						className="mt-6 block text-3xl font-bold text-brand-purple"
+						typingSpeed={60}
+						pauseDuration={2000}
+						showCursor={false}
+					/>
+					<div className="relative flex flex-col w-full items-center justify-between ~gap-2/4 lg:flex-row mt-6">
+						<div className="max-w-[45ch] font-semibold ~text-lg/xl">
+							<p>
+								I build robust, scalable web applications and beautiful user
+								interfaces. Let&apos;s create something amazing together!
+							</p>
+						</div>
+						<a
+							href="#projects"
+							className="z-20 mt-2 block button-cutout group mx-4 inline-flex items-center bg-gradient-to-b from-25% to-75% bg-[length:100%_400%] font-bold transition-[filter,background-position] duration-300 hover:bg-bottom from-brand-purple to-brand-lime text-white hover:text-black ~text-lg/2xl ~gap-3/4 ~px-1/2 ~py-3/4"
+						>
+							<span className="flex size-6 items-center justify-center transition-transform group-hover:-rotate-[25deg] size-6">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									width="24"
+									height="24"
+								>
+									<path fill="currentColor" d="M12 5v14m7-7H5" />
+								</svg>
+							</span>
+							<div className="w-px self-stretch bg-black/25" />
+							View Projects
+						</a>
+					</div>
+				</div>
+				{/* Right side image with hover interaction - moved up and right */}
+				<div
+					className="flex-1 w-full max-w-xl h-[300px] min-h-[200px] max-h-[350px] flex items-start justify-end relative z-30"
+					style={{ marginTop: "-40px", marginRight: "-40px" }}
+				>
+					<div
+						className="group w-[90%] h-[90%] flex items-center justify-center cursor-pointer transition-transform duration-300"
+						style={{ perspective: "1200px" }}
+					>
+						<Image
+							src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80"
+							alt="Showcase"
+							width={350}
+							height={350}
+							className="rounded-2xl shadow-2xl object-cover w-full h-full max-h-[350px] max-w-xl transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3"
+							style={{ willChange: "transform" }}
+							priority
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 );
 
 const ProductGrid = () => (

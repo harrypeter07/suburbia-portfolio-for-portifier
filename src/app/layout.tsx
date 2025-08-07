@@ -28,7 +28,7 @@ function Logo(props: React.SVGProps<SVGSVGElement>) {
 			viewBox="0 0 411 211"
 			{...props}
 		>
-			<title>Suburbia Skate Logo</title>
+			<title>PORTFOLIO</title>
 			<rect
 				width="411"
 				height="211"
@@ -44,7 +44,7 @@ function Logo(props: React.SVGProps<SVGSVGElement>) {
 				fontSize="48"
 				fill="currentColor"
 			>
-				Suburbia
+				PORTFOLIO
 			</text>
 		</svg>
 	);

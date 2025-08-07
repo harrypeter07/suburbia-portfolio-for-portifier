@@ -11,8 +11,8 @@ type Props = {
 };
 
 export function ParallaxImage({
-	foregroundImage = "/prismic/guy-1.png",
-	backgroundImage = "/prismic/paint-background.png",
+	foregroundImage = "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
+	backgroundImage = "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
 	className,
 }: Props) {
 	const backgroundImageRef = useRef<HTMLDivElement>(null);

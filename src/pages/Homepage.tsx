@@ -23,20 +23,24 @@ const Hero = () => (
 								text={["Hi, my name is"]}
 								typingSpeed={60}
 								pauseDuration={1200}
-								showCursor={true}
+								showCursor={false}
 								className="text-white"
 							/>
 						</span>
-					<span className="block font-sans uppercase text-xl md:text-3xl lg:text-4xl font-extrabold text-brand-blue drop-shadow-lg tracking-tight pl-2" style={{ left: '-10px', position: 'relative' }}>
-						<TextType
-							as="span"
-							text={["HASSAN MANSURI"]}
-							typingSpeed={80}
-							pauseDuration={3000}
-							showCursor={true}
-							className="text-brand-blue"
-						/>
-					</span>
+						<span
+							className="block font-sans uppercase text-2xl md:text-5xl lg:text-6xl font-extrabold  drop-shadow-lg tracking-tight pl-2"
+							style={{ left: "-10px", position: "relative" }}
+						>
+							<TextType
+								as="span"
+								text={["HASSAN MANSURI"]}
+								typingSpeed={80}
+								pauseDuration={3000}
+								showCursor={true}
+								className=""
+								textColors={["#000"]}
+							/>
+						</span>
 					</div>
 					<TextType
 						as="span"
@@ -106,6 +110,7 @@ const ProductGrid = () => (
 			borderRadius: "2rem",
 			boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
 			minHeight: "60vh",
+			backgroundAttachment: "fixed",
 		}}
 	>
 		{/* Animated Background */}
@@ -140,15 +145,17 @@ const ProductGrid = () => (
 				pauseDuration={2000}
 				showCursor={false}
 			/>
-			<div className="w-full gap-8 md:grid-cols-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-8">
+			<div className="w-full py-8 overflow-x-auto scrollbar-thin scrollbar-thumb-brand-purple scrollbar-track-transparent" style={{ display: 'flex', gap: '2rem', flexDirection: 'row', minHeight: '350px' }}>
 				{projectData.map((project, index) => (
-					<ProjectCard
-						key={index}
-						title={project.title}
-						image={project.image}
-						description={project.description}
-						link={project.link}
-					/>
+					<div style={{ minWidth: '320px', maxWidth: '340px', height: '260px', flex: '0 0 auto' }}>
+						<ProjectCard
+							key={index}
+							title={project.title}
+							image={project.image}
+							description={project.description}
+							link={project.link}
+						/>
+					</div>
 				))}
 			</div>
 		</div>
@@ -187,11 +194,20 @@ const Homepage = () => {
 						"I'm Aryan Sharma, a passionate developer and designer based in India. I specialize in building interactive, visually stunning web applications that deliver real value. With a background in both design and engineering, I love turning ideas into delightful digital experiences.\n\nContact: aryan.sharma@email.com | +91-9876543210\nLocation: New Delhi, India\nExperience: 4+ years in web development\nEducation: B.Tech in Computer Science\nInterests: UI/UX, Animation, 3D, Open Source, Music, Travel."
 					}
 					buttonText="Download Resume"
+			<ParallaxSection>
+				{/* About Section - Expanded */}
+				<TextAndImage
+					variation="right"
+					theme="orange"
+					heading="About Me"
+					text={
+						"I'm Aryan Sharma, a passionate developer and designer based in India. I specialize in building interactive, visually stunning web applications that deliver real value. With a background in both design and engineering, I love turning ideas into delightful digital experiences.\n\nContact: aryan.sharma@email.com | +91-9876543210\nLocation: New Delhi, India\nExperience: 4+ years in web development\nEducation: B.Tech in Computer Science\nInterests: UI/UX, Animation, 3D, Open Source, Music, Travel."
+					}
+					buttonText="Download Resume"
 					buttonLink="/resume.pdf"
 					imageForeground="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80"
 					imageBackground="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
 				/>
-
 				{/* Skills Section - Structured & Animated */}
 				<section className="bg-brand-blue bg-texture py-16 px-4">
 					<div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24">
@@ -208,54 +224,45 @@ const Homepage = () => {
 								A quick overview of my technical skills and tools I use daily.
 							</div>
 							<div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-								{[
-									{
-										group: "Frontend",
-										skills: [
-											"React",
-											"Next.js",
-											"TypeScript",
-											"JavaScript",
-											"Tailwind CSS",
-											"Framer Motion",
-											"CSS3",
-											"HTML5",
-										],
-									},
-									{
-										group: "Backend",
-										skills: [
-											"Node.js",
-											"Express",
-											"MongoDB",
-											"Firebase",
-											"REST APIs",
-										],
-									},
-									{
-										group: "Design",
-										skills: ["Figma", "Adobe XD", "UI/UX", "Animation"],
-									},
-									{
-										group: "Tools",
-										skills: ["Git", "VS Code", "Jira", "Vercel", "Netlify"],
-									},
-								].map(({ group, skills }) => (
-									<div
-										key={group}
-										className="rounded-xl bg-white/10 p-4 shadow-lg border border-white/10 animate-fade-in-up"
-									>
-										<div className="font-bold text-brand-lime mb-2">
-											{group}
-										</div>
-										<ul className="space-y-1">
-											{skills.map((skill) => (
-												<li key={skill} className="flex items-center gap-2">
-													<span className="inline-block w-2 h-2 rounded-full bg-brand-lime animate-pulse" />
-													<span className="text-white/90 font-medium">
-														{skill}
-													</span>
-												</li>
+								{[ ...existing code... ]}
+							</div>
+						</div>
+						<div className="flex justify-center items-center animate-fade-in-up">
+							<Image
+								src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+								alt="Skills"
+								width={300}
+								height={400}
+								className="rounded-2xl shadow-2xl w-full max-w-xs"
+								priority
+							/>
+						</div>
+					</div>
+				</section>
+				{/* New Contact Section - Increased Height */}
+				<section className="bg-brand-lime bg-texture py-32 px-4 min-h-[500px]">
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24 max-w-6xl mx-auto h-full">
+						<div className="flex flex-col items-center md:items-start text-center md:text-left gap-8 animate-fade-in-up h-full justify-center">
+							<TextType
+								as="h2"
+								text={["Contact"]}
+								className="text-4xl font-bold text-white"
+								typingSpeed={60}
+								pauseDuration={2000}
+								showCursor={false}
+							/>
+							<div className="text-lg text-white max-w-md">
+								Interested in working together, collaborating, or just want to
+								say hi? I&apos;m always open to new opportunities and creative
+								projects. Let&apos;s connect!
+							</div>
+						</div>
+						<div className="flex justify-center items-center animate-fade-in-up h-full">
+							<ContactForm />
+						</div>
+					</div>
+				</section>
+			</ParallaxSection>
 											))}
 										</ul>
 									</div>

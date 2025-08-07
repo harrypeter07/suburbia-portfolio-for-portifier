@@ -1,5 +1,7 @@
-"use client"
-import React, { ReactNode, ElementType } from "react";
+"use client";
+import React from "react";
+
+import Image from "next/image";
 
 import ProjectCard from "@/app/components/SkateBoard";
 import projectData from "@/data/skateboardData";
@@ -7,44 +9,37 @@ import TextAndImage from "@/app/components/TextAndImage";
 import ParallaxSection from "@/app/components/ParallaxSection";
 import TextType from "@/app/components/TextType";
 
-interface HeadingProps {
-	as?: ElementType;
-	className?: string;
-	children: ReactNode;
-	size?: "xl" | "lg" | "md" | "sm" | "xs";
-}
-
 // Heading replaced by TextType for typing animation
 
 const Hero = () => (
-   <section className="hero relative h-dvh overflow-hidden text-zinc-800 m-0 border-none">
-	   <div className="grid absolute inset-0 mx-auto mt-24 max-w-6xl grid-rows-[1fr,auto] place-items-end px-6 ~py-10/16">
-		   <h1 className="relative max-w-2xl place-self-start font-sans uppercase ~text-4xl/7xl">
-			   <TextType
-				   as="span"
-				   text={["Hi, I'm "]}
-				   typingSpeed={60}
-				   pauseDuration={1200}
-				   showCursor={true}
-				   className="text-zinc-900"
-			   />
-			   <TextType
-				   as="span"
-				   text={["Aryan Sharma"]}
-				   typingSpeed={60}
-				   pauseDuration={1200}
-				   showCursor={false}
-				   className="text-brand-purple"
-			   />
-		   </h1>
-		   <TextType
-			   as="span"
-			   text={["Creative Developer & Designer"]}
-			   className="mt-6 block text-2xl font-bold"
-			   typingSpeed={60}
-			   pauseDuration={2000}
-			   showCursor={false}
-		   />
+	<section className="hero relative h-dvh overflow-hidden text-zinc-800 m-0 border-none">
+		<div className="grid absolute inset-0 mx-auto mt-24 max-w-6xl grid-rows-[1fr,auto] place-items-end px-6 ~py-10/16">
+			<h1 className="relative max-w-2xl place-self-start font-sans uppercase ~text-4xl/7xl">
+				<TextType
+					as="span"
+					text={["Hi, I'm "]}
+					typingSpeed={60}
+					pauseDuration={1200}
+					showCursor={true}
+					className="text-zinc-900"
+				/>
+				<TextType
+					as="span"
+					text={["Aryan Sharma"]}
+					typingSpeed={60}
+					pauseDuration={1200}
+					showCursor={false}
+					className="text-brand-purple"
+				/>
+			</h1>
+			<TextType
+				as="span"
+				text={["Creative Developer & Designer"]}
+				className="mt-6 block text-2xl font-bold"
+				typingSpeed={60}
+				pauseDuration={2000}
+				showCursor={false}
+			/>
 			<div className="relative flex flex-col w-full items-center justify-between ~gap-2/4 lg:flex-row">
 				<div className="max-w-[45ch] font-semibold ~text-lg/xl">
 					<p>
@@ -76,17 +71,17 @@ const Hero = () => (
 );
 
 const ProductGrid = () => (
-   <section
-	   className="relative text-zinc-800 max-sm:mb-32 max-md:mb-32 py-16 px-4 overflow-hidden"
-	   id="projects"
-	   style={{
-		   borderRadius: "2rem",
-		   boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
-		   minHeight: "60vh",
-	   }}
-   >
+	<section
+		className="relative text-zinc-800 max-sm:mb-32 max-md:mb-32 py-16 px-4 overflow-hidden"
+		id="projects"
+		style={{
+			borderRadius: "2rem",
+			boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
+			minHeight: "60vh",
+		}}
+	>
 		{/* Animated Background */}
-		<div 
+		<div
 			className="absolute inset-0 animate-scroll-left"
 			style={{
 				backgroundImage: "url('/background-9509852_1280.webp')",
@@ -95,28 +90,28 @@ const ProductGrid = () => (
 				backgroundRepeat: "repeat-x",
 			}}
 		/>
-		
+
 		{/* Overlay for better text readability */}
 		<div className="absolute inset-0 bg-black/20 rounded-2xl" />
-		
-	   {/* Content */}
-	   <div className="relative z-10 flex flex-col items-center justify-center">
-		   <TextType
-			   as="h2"
-			   text={["PROJECTS"]}
-			   className="mb-3 text-center font-sans uppercase text-white drop-shadow-lg text-4xl md:text-5xl lg:text-6xl tracking-tight"
-			   typingSpeed={60}
-			   pauseDuration={2000}
-			   showCursor={false}
-		   />
-		   <TextType
-			   as="div"
-			   text={["Explore some of my recent work and creative projects."]}
-			   className="text-center mb-8 text-2xl md:text-3xl font-semibold text-white/90 drop-shadow"
-			   typingSpeed={40}
-			   pauseDuration={2000}
-			   showCursor={false}
-		   />
+
+		{/* Content */}
+		<div className="relative z-10 flex flex-col items-center justify-center">
+			<TextType
+				as="h2"
+				text={["PROJECTS"]}
+				className="mb-3 text-center font-sans uppercase text-white drop-shadow-lg text-4xl md:text-5xl lg:text-6xl tracking-tight"
+				typingSpeed={60}
+				pauseDuration={2000}
+				showCursor={false}
+			/>
+			<TextType
+				as="div"
+				text={["Explore some of my recent work and creative projects."]}
+				className="text-center mb-8 text-2xl md:text-3xl font-semibold text-white/90 drop-shadow"
+				typingSpeed={40}
+				pauseDuration={2000}
+				showCursor={false}
+			/>
 			<div className="w-full gap-8 md:grid-cols-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-8">
 				{projectData.map((project, index) => (
 					<ProjectCard
@@ -129,7 +124,7 @@ const ProductGrid = () => (
 				))}
 			</div>
 		</div>
-		
+
 		<style jsx>{`
 			@keyframes scroll-left {
 				0% {
@@ -139,7 +134,7 @@ const ProductGrid = () => (
 					background-position: -200% center;
 				}
 			}
-			
+
 			.animate-scroll-left {
 				animation: scroll-left 30s linear infinite;
 			}
@@ -186,18 +181,52 @@ const Homepage = () => {
 							</div>
 							<div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
 								{[
-									{ group: 'Frontend', skills: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'CSS3', 'HTML5'] },
-									{ group: 'Backend', skills: ['Node.js', 'Express', 'MongoDB', 'Firebase', 'REST APIs'] },
-									{ group: 'Design', skills: ['Figma', 'Adobe XD', 'UI/UX', 'Animation'] },
-									{ group: 'Tools', skills: ['Git', 'VS Code', 'Jira', 'Vercel', 'Netlify'] },
+									{
+										group: "Frontend",
+										skills: [
+											"React",
+											"Next.js",
+											"TypeScript",
+											"JavaScript",
+											"Tailwind CSS",
+											"Framer Motion",
+											"CSS3",
+											"HTML5",
+										],
+									},
+									{
+										group: "Backend",
+										skills: [
+											"Node.js",
+											"Express",
+											"MongoDB",
+											"Firebase",
+											"REST APIs",
+										],
+									},
+									{
+										group: "Design",
+										skills: ["Figma", "Adobe XD", "UI/UX", "Animation"],
+									},
+									{
+										group: "Tools",
+										skills: ["Git", "VS Code", "Jira", "Vercel", "Netlify"],
+									},
 								].map(({ group, skills }) => (
-									<div key={group} className="rounded-xl bg-white/10 p-4 shadow-lg border border-white/10 animate-fade-in-up">
-										<div className="font-bold text-brand-lime mb-2">{group}</div>
+									<div
+										key={group}
+										className="rounded-xl bg-white/10 p-4 shadow-lg border border-white/10 animate-fade-in-up"
+									>
+										<div className="font-bold text-brand-lime mb-2">
+											{group}
+										</div>
 										<ul className="space-y-1">
-											{skills.map(skill => (
+											{skills.map((skill) => (
 												<li key={skill} className="flex items-center gap-2">
 													<span className="inline-block w-2 h-2 rounded-full bg-brand-lime animate-pulse" />
-													<span className="text-white/90 font-medium">{skill}</span>
+													<span className="text-white/90 font-medium">
+														{skill}
+													</span>
 												</li>
 											))}
 										</ul>
@@ -206,31 +235,39 @@ const Homepage = () => {
 							</div>
 						</div>
 						<div className="flex justify-center items-center animate-fade-in-up">
-							import Image from "next/image";
-							<Image src="/prismic/guy-2.png" alt="Skills" width={300} height={400} className="rounded-2xl shadow-2xl w-full max-w-xs" priority />
+							<Image
+								src="/prismic/guy-2.png"
+								alt="Skills"
+								width={300}
+								height={400}
+								className="rounded-2xl shadow-2xl w-full max-w-xs"
+								priority
+							/>
 						</div>
 					</div>
 				</section>
 				{/* New Contact Section */}
 				<section className="bg-brand-lime bg-texture py-16 px-4">
-				  <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24 max-w-6xl mx-auto">
-					<div className="flex flex-col items-center md:items-start text-center md:text-left gap-8 animate-fade-in-up">
-				   <TextType
-					   as="h2"
-					   text={["Contact"]}
-					   className="text-4xl font-bold text-white"
-					   typingSpeed={60}
-					   pauseDuration={2000}
-					   showCursor={false}
-				   />
-					  <div className="text-lg text-white max-w-md">
-						Interested in working together, collaborating, or just want to say hi? I&apos;m always open to new opportunities and creative projects. Let&apos;s connect!
-					  </div>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center md:gap-24 max-w-6xl mx-auto">
+						<div className="flex flex-col items-center md:items-start text-center md:text-left gap-8 animate-fade-in-up">
+							<TextType
+								as="h2"
+								text={["Contact"]}
+								className="text-4xl font-bold text-white"
+								typingSpeed={60}
+								pauseDuration={2000}
+								showCursor={false}
+							/>
+							<div className="text-lg text-white max-w-md">
+								Interested in working together, collaborating, or just want to
+								say hi? I&apos;m always open to new opportunities and creative
+								projects. Let&apos;s connect!
+							</div>
+						</div>
+						<div className="flex justify-center items-center animate-fade-in-up">
+							<ContactForm />
+						</div>
 					</div>
-					<div className="flex justify-center items-center animate-fade-in-up">
-					  <ContactForm />
-					</div>
-				  </div>
 				</section>
 			</ParallaxSection>
 			<Footer />

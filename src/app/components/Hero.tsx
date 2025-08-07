@@ -42,17 +42,17 @@ const Hero = () => {
 					<div className="flex-1 w-full max-w-xl h-[300px] min-h-[200px] max-h-[350px] flex items-center justify-center relative z-30">
 						<div
 							className="group w-full h-full flex items-center justify-center cursor-pointer transition-transform duration-300"
-							style={{ perspective: '1200px' }}
+							style={{ perspective: "1200px" }}
 						>
-					<Image
-						src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
-						alt="Showcase"
-						width={600}
-						height={350}
-						className="rounded-2xl shadow-2xl object-cover w-full h-full max-h-[350px] max-w-xl transition-transform duration-500 group-hover:scale-105"
-						style={{ willChange: 'transform' }}
-						priority
-					/>
+							<Image
+								src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+								alt="Showcase"
+								width={600}
+								height={350}
+								className="rounded-2xl shadow-2xl object-cover w-full h-full max-h-[350px] max-w-xl transition-transform duration-500 group-hover:scale-105"
+								style={{ willChange: "transform" }}
+								priority
+							/>
 						</div>
 					</div>
 				</div>

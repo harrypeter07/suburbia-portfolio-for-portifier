@@ -1,5 +1,7 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Image from "next/image";
 
@@ -106,173 +108,78 @@ const Hero = () => (
 const ProductGrid = () => {
 	const sectionRef = useRef<HTMLElement>(null);
 	const cardsContainerRef = useRef<HTMLDivElement>(null);
-	const [scrollProgress, setScrollProgress] = useState(0);
-	const [isInParallaxMode, setIsInParallaxMode] = useState(false);
-	const initialScrollY = useRef(0);
-	const sectionStartY = useRef(0);
-	const sectionEndY = useRef(0);
+	const [isAnimating, setIsAnimating] = useState(false);
 
 	useEffect(() => {
-		const handleScroll = () => {
-			if (!sectionRef.current || !cardsContainerRef.current) return;
+		// Register ScrollTrigger plugin
+		gsap.registerPlugin(ScrollTrigger);
 
-			const section = sectionRef.current;
-			const rect = section.getBoundingClientRect();
-			const windowHeight = window.innerHeight;
-			const sectionHeight = section.offsetHeight;
-			const currentScrollY = window.scrollY;
+		if (!sectionRef.current || !cardsContainerRef.current) return;
 
-			// Calculate section boundaries
-			const sectionTop = rect.top;
-			const sectionBottom = rect.bottom;
-
-			// Check if section is fully in viewport (heading at top, bottom at bottom)
-			const isSectionFullyVisible = sectionTop <= 0 && sectionBottom >= windowHeight;
-
-			if (isSectionFullyVisible && !isInParallaxMode) {
-				// Enter parallax mode
-				setIsInParallaxMode(true);
-				initialScrollY.current = currentScrollY;
-				sectionStartY.current = section.offsetTop;
-				sectionEndY.current = section.offsetTop + sectionHeight;
-				// Reset progress when entering
-				setScrollProgress(0);
-			} else if (!isSectionFullyVisible && isInParallaxMode) {
-				// Exit parallax mode
-				setIsInParallaxMode(false);
-				setScrollProgress(0);
+		// Create the horizontal scroll animation
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: sectionRef.current,
+				start: "top top", // Start when top of section hits top of viewport
+				end: "bottom bottom", // End when bottom of section hits bottom of viewport
+				scrub: 1, // Smooth scrubbing effect
+				pin: true, // Pin the section during animation
+				anticipatePin: 1, // Prevent glitchy pinning
+				onEnter: () => setIsAnimating(true),
+				onLeave: () => setIsAnimating(false),
+				onEnterBack: () => setIsAnimating(true),
+				onLeaveBack: () => setIsAnimating(false),
 			}
+		});
 
-			// Only calculate progress if we're in parallax mode and not already at the limit
-			if (isInParallaxMode && scrollProgress < 0.7) {
-				// Calculate progress within the parallax section
-				const totalParallaxDistance = sectionHeight - windowHeight;
-				const currentParallaxProgress = currentScrollY - initialScrollY.current;
-				const progress = Math.max(0, Math.min(0.7, currentParallaxProgress / totalParallaxDistance));
-				
-				setScrollProgress(progress);
-			}
-		};
+		// Animate the cards container horizontally
+		tl.to(cardsContainerRef.current, {
+			x: "-70%", // Move 70% to the left (showing 2nd-3rd card from left)
+			ease: "none",
+			duration: 1
+		});
 
-		// Add scroll event listener with throttling for better performance
-		let ticking = false;
-		const throttledHandleScroll = () => {
-			if (!ticking) {
-				requestAnimationFrame(() => {
-					handleScroll();
-					ticking = false;
-				});
-				ticking = true;
-			}
-		};
-
-		window.addEventListener('scroll', throttledHandleScroll, { passive: true });
-		
-		// Initial calculation
-		handleScroll();
-
-		// Cleanup
+		// Cleanup function
 		return () => {
-			window.removeEventListener('scroll', throttledHandleScroll);
+			ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 		};
-	}, [isInParallaxMode, scrollProgress]);
+	}, []);
 
-	// Add keyboard support for manual exit
+	// Handle manual skip functionality
+	const handleSkip = () => {
+		if (cardsContainerRef.current) {
+			gsap.to(cardsContainerRef.current, {
+				x: "-70%",
+				duration: 0.5,
+				ease: "power2.out"
+			});
+		}
+	};
+
+	// Handle keyboard shortcuts
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
-			if (isInParallaxMode && (e.key === 'Escape' || e.key === ' ')) {
+			if (isAnimating && (e.key === 'Escape' || e.key === ' ')) {
 				e.preventDefault();
-				setIsInParallaxMode(false);
-				setScrollProgress(0.7); // Stop at the same point as auto-exit
+				handleSkip();
 			}
 		};
 
-		if (isInParallaxMode) {
-			window.addEventListener('keydown', handleKeyDown);
-		}
-
-		return () => {
-			window.removeEventListener('keydown', handleKeyDown);
-		};
-	}, [isInParallaxMode]);
-
-	// Handle scroll locking when in parallax mode
-	useEffect(() => {
-		const handleWheel = (e: WheelEvent) => {
-			if (isInParallaxMode) {
-				e.preventDefault();
-				
-				// Simulate scroll progress based on wheel delta with smoother speed
-				const delta = e.deltaY;
-				const section = sectionRef.current;
-				if (section) {
-					const sectionHeight = section.offsetHeight;
-					const windowHeight = window.innerHeight;
-					const totalParallaxDistance = sectionHeight - windowHeight;
-					
-					// Faster scroll speed - not too slow
-					const progressIncrement = (delta / totalParallaxDistance) * 0.08; // Increased from 0.03 to 0.08
-					const newProgress = Math.max(0, Math.min(0.7, scrollProgress + progressIncrement)); // Stop at 70% (2nd-3rd card from left)
-					setScrollProgress(newProgress);
-					
-					// Exit parallax mode when we reach the desired stopping point
-					if (newProgress >= 0.7) {
-						setIsInParallaxMode(false);
-						// Resume normal scrolling by scrolling to the end of the section
-						setTimeout(() => {
-							window.scrollTo({
-								top: section.offsetTop + section.offsetHeight,
-								behavior: 'smooth'
-							});
-						}, 100);
-					}
-				}
-			}
-		};
-
-		if (isInParallaxMode) {
-			// Lock scroll position
-			document.body.style.overflow = 'hidden';
-			document.body.style.position = 'fixed';
-			document.body.style.width = '100%';
-			document.body.style.top = `-${initialScrollY.current}px`;
-			
-			// Add wheel event listener
-			window.addEventListener('wheel', handleWheel, { passive: false });
-		} else {
-			// Unlock scroll position with proper cleanup
-			document.body.style.overflow = '';
-			document.body.style.position = '';
-			document.body.style.width = '';
-			document.body.style.top = '';
-		}
-
-		return () => {
-			// Cleanup
-			window.removeEventListener('wheel', handleWheel);
-			document.body.style.overflow = '';
-			document.body.style.position = '';
-			document.body.style.width = '';
-			document.body.style.top = '';
-		};
-	}, [isInParallaxMode, scrollProgress]);
-
-	// Calculate horizontal movement based on scroll progress
-	// Move cards from right to left as user scrolls through the section
-	// Stop at 70% to show 2nd-3rd card from the left
-	const translateX = scrollProgress * -250; // Adjusted range to stop at desired point
+		window.addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	}, [isAnimating]);
 
 	return (
 		<section
 			ref={sectionRef}
 			className={`relative text-zinc-800 max-sm:mb-32 max-md:mb-32 py-16 px-4 overflow-hidden transition-all duration-500 ${
-				isInParallaxMode ? 'bg-brand-purple/10' : ''
+				isAnimating ? 'bg-brand-purple/10' : ''
 			}`}
 			id="projects"
 			style={{
 				borderRadius: "2rem",
 				boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
-				minHeight: "100vh", // Increased height for better parallax effect
+				minHeight: "100vh", // Full viewport height for GSAP animation
 			}}
 		>
 			{/* Animated Background */}
@@ -308,29 +215,20 @@ const ProductGrid = () => {
 					showCursor={false}
 				/>
 				
-				{/* Parallax Progress Indicator */}
-				{isInParallaxMode && (
+				{/* Animation Status Indicator */}
+				{isAnimating && (
 					<div className="fixed top-4 right-4 z-50 bg-black/50 text-white px-4 py-2 rounded-lg backdrop-blur-sm">
 						<div className="flex items-center justify-between mb-2">
 							<div className="text-sm font-medium">Horizontal Scroll Active</div>
 							<button 
-								onClick={() => {
-									setIsInParallaxMode(false);
-									setScrollProgress(0.7);
-								}}
+								onClick={handleSkip}
 								className="text-xs bg-brand-lime text-black px-2 py-1 rounded hover:bg-brand-lime/80 transition-colors"
 							>
 								Skip
 							</button>
 						</div>
-						<div className="w-full bg-white/20 rounded-full h-2">
-							<div 
-								className="bg-brand-lime h-2 rounded-full transition-all duration-300"
-								style={{ width: `${scrollProgress * 100}%` }}
-							/>
-						</div>
-						<div className="text-xs mt-1 opacity-75">
-							{Math.round(scrollProgress * 100)}% complete • Stop at 70% • Press ESC to skip
+						<div className="text-xs opacity-75">
+							Scroll to move cards • Press ESC to skip
 						</div>
 					</div>
 				)}
@@ -339,10 +237,7 @@ const ProductGrid = () => {
 				<div className="w-full overflow-hidden py-8">
 					<div 
 						ref={cardsContainerRef}
-						className="flex gap-8 transition-transform duration-300 ease-out"
-						style={{
-							transform: `translateX(${translateX}%)`,
-						}}
+						className="flex gap-8"
 					>
 						{projectData.map((project, index) => (
 							<div key={index} className="flex-shrink-0 w-full max-w-md">

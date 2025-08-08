@@ -20,33 +20,26 @@ const dmMono = DM_Mono({
 });
 
 import Link from "next/link";
-function Logo(props: React.SVGProps<SVGSVGElement>) {
+function Logo() {
 	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 411 211"
-			{...props}
+		<Link
+			href="/"
+			className="button-cutout group inline-flex items-center bg-gradient-to-b from-25% to-75% bg-[length:100%_400%] font-bold transition-[filter,background-position] duration-300 hover:bg-bottom from-brand-purple to-brand-lime text-white hover:text-black px-6 py-3 rounded-xl"
 		>
-			<title>PORTFOLIO</title>
-			<rect
-				width="411"
-				height="211"
-				rx="32"
-				fill="currentColor"
-				fillOpacity="0.08"
-			/>
-			<text
-				x="50%"
-				y="50%"
-				textAnchor="middle"
-				dy=".3em"
-				fontSize="48"
-				fill="currentColor"
-			>
-				PORTFOLIO
-			</text>
-		</svg>
+			<span className="flex size-5 items-center justify-center transition-transform group-hover:-rotate-[25deg] mr-2">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					width="20"
+					height="20"
+				>
+					<path fill="currentColor" d="M3 12h18M12 3v18" />
+				</svg>
+			</span>
+			<div className="w-px self-stretch bg-black/25 mr-2" />
+			PORTFOLIO
+		</Link>
 	);
 }
 
@@ -54,9 +47,9 @@ function Header() {
 	return (
 		<header className="header absolute left-0 right-0 top-0 z-50 ~h-32/48 ~px-4/6 ~py-4/6 md:h-32">
 			<div className="mx-auto grid w-full max-w-6xl grid-cols-[auto,auto] items-center gap-6 md:grid-cols-[1fr,auto,1fr]">
-				<Link href="/" className="justify-self-start" aria-label="Home">
-					<Logo className="text-brand-purple ~h-12/20 " />
-				</Link>
+				<div className="justify-self-start">
+					<Logo />
+				</div>
 				<nav
 					aria-label="Main"
 					className="col-span-full row-start-2 md:col-span-1 md:col-start-2 md:row-start-1"

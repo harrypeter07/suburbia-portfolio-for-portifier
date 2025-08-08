@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -108,7 +108,6 @@ const Hero = () => (
 const ProductGrid = () => {
 	const sectionRef = useRef<HTMLElement>(null);
 	const cardsContainerRef = useRef<HTMLDivElement>(null);
-	const [isAnimating, setIsAnimating] = useState(false);
 
 	useEffect(() => {
 		// Register ScrollTrigger plugin
@@ -116,26 +115,36 @@ const ProductGrid = () => {
 
 		if (!sectionRef.current || !cardsContainerRef.current) return;
 
-		// Create the horizontal scroll animation
+		// Calculate horizontal scroll percentage based on number of projects
+		const totalProjects = projectData.length;
+		const cardsPerView = 4; // Number of cards visible at once (adjust based on your layout)
+		const scrollPercentage = Math.max(0, ((totalProjects - cardsPerView) / cardsPerView) * 100);
+		
+		// Increase horizontal movement to ensure last project is reachable
+		const adjustedScrollPercentage = scrollPercentage + 50; // Add 50% extra movement
+		
+		// Calculate scroll distance based on project count - increased for better coverage
+		const scrollDistance = totalProjects > cardsPerView ? `+=${Math.max(400, totalProjects * 120)}%` : "+=400%";
+
+		// Create the horizontal scroll animation with improved settings
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: sectionRef.current,
 				start: "top top", // Start when top of section hits top of viewport
-				end: "bottom bottom", // End when bottom of section hits bottom of viewport
-				scrub: 1, // Smooth scrubbing effect
+				end: scrollDistance, // Dynamic scroll distance based on project count
+				scrub: 0.7, // Faster, more responsive scrubbing effect
 				pin: true, // Pin the section during animation
 				anticipatePin: 1, // Prevent glitchy pinning
-				onEnter: () => setIsAnimating(true),
-				onLeave: () => setIsAnimating(false),
-				onEnterBack: () => setIsAnimating(true),
-				onLeaveBack: () => setIsAnimating(false),
+				markers: false, // Disable markers for production
+				fastScrollEnd: true, // Better performance for fast scrolling
+				preventOverlaps: true, // Prevent overlapping triggers
 			}
 		});
 
 		// Animate the cards container horizontally
 		tl.to(cardsContainerRef.current, {
-			x: "-70%", // Move 70% to the left (showing 2nd-3rd card from left)
-			ease: "none",
+			x: `-${adjustedScrollPercentage}%`, // Dynamic percentage with extra movement
+			ease: "power2.out", // Even smoother easing
 			duration: 1
 		});
 
@@ -145,36 +154,10 @@ const ProductGrid = () => {
 		};
 	}, []);
 
-	// Handle manual skip functionality
-	const handleSkip = () => {
-		if (cardsContainerRef.current) {
-			gsap.to(cardsContainerRef.current, {
-				x: "-70%",
-				duration: 0.5,
-				ease: "power2.out"
-			});
-		}
-	};
-
-	// Handle keyboard shortcuts
-	useEffect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			if (isAnimating && (e.key === 'Escape' || e.key === ' ')) {
-				e.preventDefault();
-				handleSkip();
-			}
-		};
-
-		window.addEventListener('keydown', handleKeyDown);
-		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [isAnimating]);
-
 	return (
 		<section
 			ref={sectionRef}
-			className={`relative text-zinc-800 max-sm:mb-32 max-md:mb-32 py-16 px-4 overflow-hidden transition-all duration-500 ${
-				isAnimating ? 'bg-brand-purple/10' : ''
-			}`}
+			className="relative text-zinc-800 max-sm:mb-32 max-md:mb-32 py-16 px-4 overflow-hidden transition-all duration-500"
 			id="projects"
 			style={{
 				borderRadius: "2rem",
@@ -214,24 +197,6 @@ const ProductGrid = () => {
 					pauseDuration={2000}
 					showCursor={false}
 				/>
-				
-				{/* Animation Status Indicator */}
-				{isAnimating && (
-					<div className="fixed top-4 right-4 z-50 bg-black/50 text-white px-4 py-2 rounded-lg backdrop-blur-sm">
-						<div className="flex items-center justify-between mb-2">
-							<div className="text-sm font-medium">Horizontal Scroll Active</div>
-							<button 
-								onClick={handleSkip}
-								className="text-xs bg-brand-lime text-black px-2 py-1 rounded hover:bg-brand-lime/80 transition-colors"
-							>
-								Skip
-							</button>
-						</div>
-						<div className="text-xs opacity-75">
-							Scroll to move cards • Press ESC to skip
-						</div>
-					</div>
-				)}
 				
 				{/* Horizontal scroll container */}
 				<div className="w-full overflow-hidden py-8">

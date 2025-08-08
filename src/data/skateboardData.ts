@@ -31,6 +31,62 @@ const projectData = [
 			"A web-based 3D viewer for product showcases, using Three.js and React Three Fiber for interactive experiences.",
 		link: "https://3dviewer-demo.com",
 	},
+	{
+		title: "Mobile Banking App",
+		image:
+			"https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80",
+		description:
+			"A secure mobile banking application with biometric authentication, real-time transactions, and intuitive financial management tools.",
+		link: "https://banking-app-demo.com",
+	},
+	{
+		title: "Social Media Platform",
+		image:
+			"https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=800&q=80",
+		description:
+			"A modern social networking platform with real-time messaging, content sharing, and community features built with React and Socket.io.",
+		link: "https://social-platform-demo.com",
+	},
+	{
+		title: "Fitness Tracking App",
+		image:
+			"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80",
+		description:
+			"A comprehensive fitness tracking application with workout plans, progress analytics, and social features for motivation.",
+		link: "https://fitness-app-demo.com",
+	},
+	{
+		title: "Weather Dashboard",
+		image:
+			"https://images.unsplash.com/photo-1592210454359-9043f067919b?auto=format&fit=crop&w=800&q=80",
+		description:
+			"A beautiful weather application with detailed forecasts, interactive maps, and location-based weather alerts.",
+		link: "https://weather-dashboard-demo.com",
+	},
+	{
+		title: "Task Management System",
+		image:
+			"https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80",
+		description:
+			"A collaborative task management system with drag-and-drop functionality, team collaboration, and progress tracking.",
+		link: "https://task-manager-demo.com",
+	},
+	{
+		title: "Music Streaming App",
+		image:
+			"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80",
+		description:
+			"A music streaming platform with personalized playlists, offline downloads, and high-quality audio streaming capabilities.",
+		link: "https://music-app-demo.com",
+	},
+	{
+		title: "Recipe Finder App",
+		image:
+			"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=800&q=80",
+		description:
+			"An intelligent recipe finder with ingredient-based search, nutritional information, and step-by-step cooking instructions.",
+		link: "https://recipe-finder-demo.com",
+	},
 ];
 
 export default projectData;

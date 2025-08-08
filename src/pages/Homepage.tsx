@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 import Image from "next/image";
 
@@ -103,78 +103,278 @@ const Hero = () => (
 );
 
 
-const ProductGrid = () => (
-	
-	<section
-		className="relative text-zinc-800 max-sm:mb-32 max-md:mb-32 py-16 px-4 overflow-hidden"
-		id="projects"
-		style={{
-			borderRadius: "2rem",
-			boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
-			minHeight: "60vh",
-		}}
-	>
-		{/* Animated Background */}
-		<div
-			className="absolute inset-0 animate-scroll-left"
+const ProductGrid = () => {
+	const sectionRef = useRef<HTMLElement>(null);
+	const cardsContainerRef = useRef<HTMLDivElement>(null);
+	const [scrollProgress, setScrollProgress] = useState(0);
+	const [isInParallaxMode, setIsInParallaxMode] = useState(false);
+	const initialScrollY = useRef(0);
+	const sectionStartY = useRef(0);
+	const sectionEndY = useRef(0);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			if (!sectionRef.current || !cardsContainerRef.current) return;
+
+			const section = sectionRef.current;
+			const rect = section.getBoundingClientRect();
+			const windowHeight = window.innerHeight;
+			const sectionHeight = section.offsetHeight;
+			const currentScrollY = window.scrollY;
+
+			// Calculate section boundaries
+			const sectionTop = rect.top;
+			const sectionBottom = rect.bottom;
+
+			// Check if section is fully in viewport (heading at top, bottom at bottom)
+			const isSectionFullyVisible = sectionTop <= 0 && sectionBottom >= windowHeight;
+
+			if (isSectionFullyVisible && !isInParallaxMode) {
+				// Enter parallax mode
+				setIsInParallaxMode(true);
+				initialScrollY.current = currentScrollY;
+				sectionStartY.current = section.offsetTop;
+				sectionEndY.current = section.offsetTop + sectionHeight;
+				// Reset progress when entering
+				setScrollProgress(0);
+			} else if (!isSectionFullyVisible && isInParallaxMode) {
+				// Exit parallax mode
+				setIsInParallaxMode(false);
+				setScrollProgress(0);
+			}
+
+			// Only calculate progress if we're in parallax mode and not already at the limit
+			if (isInParallaxMode && scrollProgress < 0.7) {
+				// Calculate progress within the parallax section
+				const totalParallaxDistance = sectionHeight - windowHeight;
+				const currentParallaxProgress = currentScrollY - initialScrollY.current;
+				const progress = Math.max(0, Math.min(0.7, currentParallaxProgress / totalParallaxDistance));
+				
+				setScrollProgress(progress);
+			}
+		};
+
+		// Add scroll event listener with throttling for better performance
+		let ticking = false;
+		const throttledHandleScroll = () => {
+			if (!ticking) {
+				requestAnimationFrame(() => {
+					handleScroll();
+					ticking = false;
+				});
+				ticking = true;
+			}
+		};
+
+		window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+		
+		// Initial calculation
+		handleScroll();
+
+		// Cleanup
+		return () => {
+			window.removeEventListener('scroll', throttledHandleScroll);
+		};
+	}, [isInParallaxMode, scrollProgress]);
+
+	// Add keyboard support for manual exit
+	useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (isInParallaxMode && (e.key === 'Escape' || e.key === ' ')) {
+				e.preventDefault();
+				setIsInParallaxMode(false);
+				setScrollProgress(0.7); // Stop at the same point as auto-exit
+			}
+		};
+
+		if (isInParallaxMode) {
+			window.addEventListener('keydown', handleKeyDown);
+		}
+
+		return () => {
+			window.removeEventListener('keydown', handleKeyDown);
+		};
+	}, [isInParallaxMode]);
+
+	// Handle scroll locking when in parallax mode
+	useEffect(() => {
+		const handleWheel = (e: WheelEvent) => {
+			if (isInParallaxMode) {
+				e.preventDefault();
+				
+				// Simulate scroll progress based on wheel delta with smoother speed
+				const delta = e.deltaY;
+				const section = sectionRef.current;
+				if (section) {
+					const sectionHeight = section.offsetHeight;
+					const windowHeight = window.innerHeight;
+					const totalParallaxDistance = sectionHeight - windowHeight;
+					
+					// Faster scroll speed - not too slow
+					const progressIncrement = (delta / totalParallaxDistance) * 0.08; // Increased from 0.03 to 0.08
+					const newProgress = Math.max(0, Math.min(0.7, scrollProgress + progressIncrement)); // Stop at 70% (2nd-3rd card from left)
+					setScrollProgress(newProgress);
+					
+					// Exit parallax mode when we reach the desired stopping point
+					if (newProgress >= 0.7) {
+						setIsInParallaxMode(false);
+						// Resume normal scrolling by scrolling to the end of the section
+						setTimeout(() => {
+							window.scrollTo({
+								top: section.offsetTop + section.offsetHeight,
+								behavior: 'smooth'
+							});
+						}, 100);
+					}
+				}
+			}
+		};
+
+		if (isInParallaxMode) {
+			// Lock scroll position
+			document.body.style.overflow = 'hidden';
+			document.body.style.position = 'fixed';
+			document.body.style.width = '100%';
+			document.body.style.top = `-${initialScrollY.current}px`;
+			
+			// Add wheel event listener
+			window.addEventListener('wheel', handleWheel, { passive: false });
+		} else {
+			// Unlock scroll position with proper cleanup
+			document.body.style.overflow = '';
+			document.body.style.position = '';
+			document.body.style.width = '';
+			document.body.style.top = '';
+		}
+
+		return () => {
+			// Cleanup
+			window.removeEventListener('wheel', handleWheel);
+			document.body.style.overflow = '';
+			document.body.style.position = '';
+			document.body.style.width = '';
+			document.body.style.top = '';
+		};
+	}, [isInParallaxMode, scrollProgress]);
+
+	// Calculate horizontal movement based on scroll progress
+	// Move cards from right to left as user scrolls through the section
+	// Stop at 70% to show 2nd-3rd card from the left
+	const translateX = scrollProgress * -250; // Adjusted range to stop at desired point
+
+	return (
+		<section
+			ref={sectionRef}
+			className={`relative text-zinc-800 max-sm:mb-32 max-md:mb-32 py-16 px-4 overflow-hidden transition-all duration-500 ${
+				isInParallaxMode ? 'bg-brand-purple/10' : ''
+			}`}
+			id="projects"
 			style={{
-				backgroundImage: "url('/background-9509852_1280.webp')",
-				backgroundSize: "200% 100%",
-				backgroundPosition: "0% center",
-				backgroundRepeat: "repeat-x",
+				borderRadius: "2rem",
+				boxShadow: "0 8px 32px rgba(0,0,0,0.15)",
+				minHeight: "100vh", // Increased height for better parallax effect
 			}}
-		/>
-
-		{/* Overlay for better text readability */}
-		<div className="absolute inset-0 bg-black/20 rounded-2xl" />
-
-		{/* Content */}
-		<div className="relative z-10 flex flex-col items-center justify-center">
-			<TextType
-				as="h2"
-				text={["PROJECTS"]}
-				className="mb-3 text-center font-sans uppercase text-white drop-shadow-lg text-4xl md:text-5xl lg:text-6xl tracking-tight"
-				typingSpeed={60}
-				pauseDuration={2000}
-				showCursor={false}
+		>
+			{/* Animated Background */}
+			<div
+				className="absolute inset-0 animate-scroll-left"
+				style={{
+					backgroundImage: "url('/background-9509852_1280.webp')",
+					backgroundSize: "200% 100%",
+					backgroundPosition: "0% center",
+					backgroundRepeat: "repeat-x",
+				}}
 			/>
-			<TextType
-				as="div"
-				text={["Explore some of my recent work and creative projects."]}
-				className="text-center mb-8 text-2xl md:text-3xl font-semibold text-white/90 drop-shadow"
-				typingSpeed={40}
-				pauseDuration={2000}
-				showCursor={false}
-			/>
-			<div className="w-full gap-8 md:grid-cols-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-8">
-				{projectData.map((project, index) => (
-					<ProjectCard
-						key={index}
-						title={project.title}
-						image={project.image}
-						description={project.description}
-						link={project.link}
-					/>
-				))}
+
+			{/* Overlay for better text readability */}
+			<div className="absolute inset-0 bg-black/20 rounded-2xl" />
+
+			{/* Content */}
+			<div className="relative z-10 flex flex-col items-center justify-center">
+				<TextType
+					as="h2"
+					text={["PROJECTS"]}
+					className="mb-3 text-center font-sans uppercase text-white drop-shadow-lg text-4xl md:text-5xl lg:text-6xl tracking-tight"
+					typingSpeed={60}
+					pauseDuration={2000}
+					showCursor={false}
+				/>
+				<TextType
+					as="div"
+					text={["Explore some of my recent work and creative projects."]}
+					className="text-center mb-8 text-2xl md:text-3xl font-semibold text-white/90 drop-shadow"
+					typingSpeed={40}
+					pauseDuration={2000}
+					showCursor={false}
+				/>
+				
+				{/* Parallax Progress Indicator */}
+				{isInParallaxMode && (
+					<div className="fixed top-4 right-4 z-50 bg-black/50 text-white px-4 py-2 rounded-lg backdrop-blur-sm">
+						<div className="flex items-center justify-between mb-2">
+							<div className="text-sm font-medium">Horizontal Scroll Active</div>
+							<button 
+								onClick={() => {
+									setIsInParallaxMode(false);
+									setScrollProgress(0.7);
+								}}
+								className="text-xs bg-brand-lime text-black px-2 py-1 rounded hover:bg-brand-lime/80 transition-colors"
+							>
+								Skip
+							</button>
+						</div>
+						<div className="w-full bg-white/20 rounded-full h-2">
+							<div 
+								className="bg-brand-lime h-2 rounded-full transition-all duration-300"
+								style={{ width: `${scrollProgress * 100}%` }}
+							/>
+						</div>
+						<div className="text-xs mt-1 opacity-75">
+							{Math.round(scrollProgress * 100)}% complete • Stop at 70% • Press ESC to skip
+						</div>
+					</div>
+				)}
+				
+				{/* Horizontal scroll container */}
+				<div className="w-full overflow-hidden py-8">
+					<div 
+						ref={cardsContainerRef}
+						className="flex gap-8 transition-transform duration-300 ease-out"
+						style={{
+							transform: `translateX(${translateX}%)`,
+						}}
+					>
+						{projectData.map((project, index) => (
+							<div key={index} className="flex-shrink-0 w-full max-w-md">
+								<ProjectCard
+									title={project.title}
+									image={project.image}
+									description={project.description}
+									link={project.link}
+								/>
+							</div>
+						))}
+					</div>
+				</div>
 			</div>
-		</div>
 
-		<style jsx>{`
-			@keyframes scroll-left {
-				0% {
-					background-position: 0% center;
+			<style jsx>{`
+				@keyframes scroll-left {
+					0% {
+						background-position: 0% center;
+					}
+					100% {
+						background-position: -200% center;
+					}
 				}
-				100% {
-					background-position: -200% center;
-				}
-			}
 
-			.animate-scroll-left {
-				animation: scroll-left 30s linear infinite;
-			}
-		`}</style>
-	</section>
-);
+				.animate-scroll-left {
+					animation: scroll-left 30s linear infinite;
+				}
+			`}</style>
+		</section>
+	);
+};
 import ContactForm from "@/app/components/ContactForm";
 import Footer from "@/app/components/Footer";
 

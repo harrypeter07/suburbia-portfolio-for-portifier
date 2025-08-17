@@ -26,14 +26,18 @@ const ProductGrid = () => {
 		
 		// Calculate the percentage to move (ensures all projects are reachable)
 		// Add extra padding to ensure last project is fully visible
-		const scrollPercentage = ((maxScrollDistance + 100) / viewportWidth) * 100;
+		const scrollPercentage = ((maxScrollDistance + 300) / viewportWidth) * 100;
+
+		// Calculate dynamic scroll distance based on number of projects
+		// Each project needs approximately 100% scroll distance to be fully visible
+		const dynamicScrollDistance = Math.max(400, totalProjects * 120); // Minimum 400%, then 120% per project
 
 		// Create the horizontal scroll animation with consistent speed
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: sectionRef.current,
 				start: "top top", // Start when top of section hits top of viewport
-				end: "+=400%", // Increased scroll distance to ensure all projects are visible
+				end: `+=${dynamicScrollDistance}%`, // Dynamic scroll distance based on project count
 				scrub: 1, // Smooth scrubbing with consistent speed
 				pin: true, // Pin the section during animation
 				anticipatePin: 1, // Prevent glitchy pinning

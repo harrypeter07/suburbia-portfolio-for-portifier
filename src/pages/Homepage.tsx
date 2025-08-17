@@ -118,12 +118,14 @@ const ProductGrid = () => {
 		// Calculate the total width needed for all projects
 		const totalProjects = projectData.length;
 		const cardWidth = 400; // Approximate width of each card including gap
-		const totalWidth = totalProjects * cardWidth;
+		const gapWidth = 32; // Gap between cards (gap-8 = 32px)
+		const totalWidth = (totalProjects * cardWidth) + ((totalProjects - 1) * gapWidth);
 		const viewportWidth = window.innerWidth;
 		const maxScrollDistance = Math.max(0, totalWidth - viewportWidth);
 		
 		// Calculate the percentage to move (ensures all projects are reachable)
-		const scrollPercentage = (maxScrollDistance / viewportWidth) * 100;
+		// Add extra padding to ensure last project is fully visible
+		const scrollPercentage = ((maxScrollDistance + 100) / viewportWidth) * 100;
 
 		// Create the horizontal scroll animation with consistent speed
 		const tl = gsap.timeline({

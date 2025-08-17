@@ -1,0 +1,90 @@
+{
+  "tech_stack": [
+    "TypeScript",
+    "Next.js",
+    "React",
+    "Tailwind CSS",
+    "Framer Motion",
+    "GSAP",
+    "Lenis",
+    "Radix UI",
+    "Spline Tool"
+  ],
+  "features": [
+    {
+      "name": "ParallaxSection",
+      "description": "A scroll-based parallax section component that creates smooth scaling animations for child components as they scroll into view",
+      "files": ["src/app/components/ParallaxSection.tsx"]
+    },
+    {
+      "name": "ParallaxImage",
+      "description": "Mouse-triggered parallax image component with foreground and background images that move at different speeds based on mouse position",
+      "files": ["src/app/components/ParallaxImage.tsx"]
+    },
+    {
+      "name": "TextAndImage",
+      "description": "Content section component that combines text content with parallax images, supporting different themes and layout variations",
+      "files": ["src/app/components/TextAndImage.tsx"]
+    },
+    {
+      "name": "Hero",
+      "description": "Main hero section with animated background and content layout",
+      "files": ["src/pages/Homepage.tsx"]
+    },
+    {
+      "name": "ProductGrid",
+      "description": "Horizontal scrolling project showcase with GSAP animations and scroll-triggered effects",
+      "files": ["src/pages/Homepage.tsx", "src/app/components/ProductGrid.tsx"]
+    },
+    {
+      "name": "TextType",
+      "description": "Typing animation component for text elements",
+      "files": ["src/app/components/TextType.tsx"]
+    },
+    {
+      "name": "ProjectCard",
+      "description": "Skateboard-themed project card component for displaying project information",
+      "files": ["src/app/components/SkateBoard.tsx"]
+    },
+    {
+      "name": "ContactForm",
+      "description": "Contact form component for user interactions",
+      "files": ["src/app/components/ContactForm.tsx"]
+    },
+    {
+      "name": "Footer",
+      "description": "Website footer component",
+      "files": ["src/app/components/Footer.tsx"]
+    },
+    {
+      "name": "Heading",
+      "description": "Reusable heading component with different sizes and styles",
+      "files": ["src/app/components/Heading.tsx"]
+    },
+    {
+      "name": "ButtonLink",
+      "description": "Styled button component that acts as a link",
+      "files": ["src/app/components/ButtonLink.tsx"]
+    },
+    {
+      "name": "SmoothScrolling",
+      "description": "Lenis-based smooth scrolling implementation",
+      "files": ["src/app/components/ParallaxSection.tsx"]
+    },
+    {
+      "name": "GSAPAnimations",
+      "description": "GSAP ScrollTrigger animations for scroll-based effects",
+      "files": ["src/pages/Homepage.tsx", "src/app/components/ProductGrid.tsx"]
+    },
+    {
+      "name": "ProjectData",
+      "description": "Static data for project cards and content",
+      "files": ["src/data/skateboardData.ts"]
+    },
+    {
+      "name": "Styling",
+      "description": "Custom CSS animations and Tailwind utilities",
+      "files": ["src/app/globals.css", "tailwind.config.ts"]
+    }
+  ]
+}

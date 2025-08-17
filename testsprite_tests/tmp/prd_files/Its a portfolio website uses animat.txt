@@ -1,0 +1,1 @@
+Its a portfolio website uses animations and parallax effects and card stack effects but the parallax is not proper the side scroll is fine in starting but lalggy and it becomes extremely slow at ending 

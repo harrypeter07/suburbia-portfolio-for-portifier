@@ -1,5 +1,5 @@
 "use client";
-import { Inter, Bowlby_One_SC, DM_Mono } from "next/font/google";
+import { Bowlby_One_SC, DM_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import LoadingScreen from "./components/LoadingScreen";
@@ -8,7 +8,7 @@ import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const inter = Inter({ subsets: ["latin"] });
+
 const bowlby = Bowlby_One_SC({
 	weight: "400",
 	subsets: ["latin"],
@@ -60,20 +60,31 @@ export default function RootLayout({
 	useEffect(() => {
 		if (typeof window === "undefined") return;
 
-		const lenis = new Lenis();
+		let lenis: Lenis | null = null;
 
-		// Integrate Lenis with GSAP ScrollTrigger
-		lenis.on('scroll', ScrollTrigger.update);
+		// Wrap in try-catch to handle any initialization errors
+		try {
+			lenis = new Lenis();
 
-		gsap.ticker.add((time) => {
-			lenis.raf(time * 1000);
-		});
+			// Integrate Lenis with GSAP ScrollTrigger
+			lenis.on('scroll', ScrollTrigger.update);
 
-		gsap.ticker.lagSmoothing(0);
+			gsap.ticker.add((time) => {
+				if (lenis) {
+					lenis.raf(time * 1000);
+				}
+			});
+
+			gsap.ticker.lagSmoothing(0);
+		} catch (error) {
+			console.warn('Lenis initialization failed:', error);
+		}
 
 		return () => {
-			lenis.destroy();
-			gsap.ticker.remove(lenis.raf);
+			if (lenis) {
+				lenis.destroy();
+				gsap.ticker.remove(lenis.raf);
+			}
 		};
 	}, []);
 

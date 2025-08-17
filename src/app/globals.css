@@ -2,37 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Performance optimizations for smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  overflow-x: hidden;
-}
-
-/* Optimize animations and transforms */
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Hardware acceleration for smooth animations */
-.parallax-container,
-.parallax-item-container,
-.parallax-item {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
-/* Optimize horizontal scrolling container */
-.horizontal-scroll-container {
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-
 .bg-texture {
   background-size: 720px 460px;
   background-repeat: repeat;

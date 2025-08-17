@@ -138,6 +138,12 @@ const ProductGrid = () => {
 				markers: false, // Disable markers for production
 				fastScrollEnd: true, // Better performance for fast scrolling
 				preventOverlaps: true, // Prevent overlapping triggers
+				onUpdate: (self) => {
+					// Ensure smooth scrolling with Lenis
+					if (window.lenis) {
+						window.lenis.raf();
+					}
+				}
 			}
 		});
 

@@ -115,24 +115,24 @@ const ProductGrid = () => {
 
 		if (!sectionRef.current || !cardsContainerRef.current) return;
 
-		// Calculate horizontal scroll percentage based on number of projects
+		// Calculate the total width needed for all projects
 		const totalProjects = projectData.length;
-		const cardsPerView = 4; // Number of cards visible at once (adjust based on your layout)
-		const scrollPercentage = Math.max(0, ((totalProjects - cardsPerView) / cardsPerView) * 100);
+		const cardsPerView = 4; // Number of cards visible at once
+		const cardWidth = 400; // Approximate width of each card including gap
+		const totalWidth = totalProjects * cardWidth;
+		const viewportWidth = window.innerWidth;
+		const maxScrollDistance = Math.max(0, totalWidth - viewportWidth);
 		
-		// Increase horizontal movement to ensure last project is reachable
-		const adjustedScrollPercentage = scrollPercentage + 50; // Add 50% extra movement
-		
-		// Calculate scroll distance based on project count - increased for better coverage
-		const scrollDistance = totalProjects > cardsPerView ? `+=${Math.max(400, totalProjects * 120)}%` : "+=400%";
+		// Calculate the percentage to move (ensures all projects are reachable)
+		const scrollPercentage = (maxScrollDistance / viewportWidth) * 100;
 
-		// Create the horizontal scroll animation with improved settings
+		// Create the horizontal scroll animation with consistent speed
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: sectionRef.current,
 				start: "top top", // Start when top of section hits top of viewport
-				end: scrollDistance, // Dynamic scroll distance based on project count
-				scrub: 0.7, // Faster, more responsive scrubbing effect
+				end: "+=300%", // Fixed scroll distance for consistent speed
+				scrub: 1, // Smooth scrubbing with consistent speed
 				pin: true, // Pin the section during animation
 				anticipatePin: 1, // Prevent glitchy pinning
 				markers: false, // Disable markers for production
@@ -141,10 +141,10 @@ const ProductGrid = () => {
 			}
 		});
 
-		// Animate the cards container horizontally
+		// Animate the cards container horizontally with linear easing for consistent speed
 		tl.to(cardsContainerRef.current, {
-			x: `-${adjustedScrollPercentage}%`, // Dynamic percentage with extra movement
-			ease: "power2.out", // Even smoother easing
+			x: `-${scrollPercentage}%`, // Move based on calculated percentage
+			ease: "none", // Linear easing for consistent speed throughout
 			duration: 1
 		});
 

@@ -1,96 +1,44 @@
 "use client";
+import { Inter, Bowlby_One_SC, DM_Mono } from "next/font/google";
 import "./globals.css";
-import { Bowlby_One_SC, DM_Mono } from "next/font/google";
-import { navigationData } from "@/data/navagationData";
-import LoadingScreen from "@/app/components/LoadingScreen";
-import React, { useEffect, useState } from "react";
+import { Header } from "./components/Header";
+import LoadingScreen from "./components/LoadingScreen";
+import { useEffect, useState } from "react";
+import Lenis from "@studio-freight/lenis";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+const inter = Inter({ subsets: ["latin"] });
 const bowlby = Bowlby_One_SC({
-	subsets: ["latin"],
-	display: "swap",
-	variable: "--font-bowlby-sc",
 	weight: "400",
-});
-
-const dmMono = DM_Mono({
 	subsets: ["latin"],
-	display: "swap",
+	variable: "--font-bowlby",
+});
+const dmMono = DM_Mono({
+	weight: ["300", "400", "500"],
+	subsets: ["latin"],
 	variable: "--font-dm-mono",
-	weight: "500",
 });
 
-import Link from "next/link";
-function Logo() {
-	return (
-		<Link
-			href="/"
-			className="button-cutout group inline-flex items-center bg-gradient-to-b from-25% to-75% bg-[length:100%_400%] font-bold transition-[filter,background-position] duration-300 hover:bg-bottom from-brand-purple to-brand-lime text-white hover:text-black px-6 py-3 rounded-xl"
-		>
-			<span className="flex size-5 items-center justify-center transition-transform group-hover:-rotate-[25deg] mr-2">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 24 24"
-					width="20"
-					height="20"
-				>
-					<path fill="currentColor" d="M3 12h18M12 3v18" />
-				</svg>
-			</span>
-			<div className="w-px self-stretch bg-black/25 mr-2" />
-			PORTFOLIO
-		</Link>
-	);
-}
-
-function Header() {
-	return (
-		<header className="header absolute left-0 right-0 top-0 z-50 ~h-32/48 ~px-4/6 ~py-4/6 md:h-32">
-			<div className="mx-auto grid w-full max-w-6xl grid-cols-[auto,auto] items-center gap-6 md:grid-cols-[1fr,auto,1fr]">
-				<div className="justify-self-start">
-					<Logo />
-				</div>
-				<nav
-					aria-label="Main"
-					className="col-span-full row-start-2 md:col-span-1 md:col-start-2 md:row-start-1"
-				>
-					<ul className="flex flex-wrap items-center justify-center gap-8">
-						{navigationData.navigation.map((item) => (
-							<li key={item.text}>
-								<Link href={item.link} className="~text-lg/xl">
-									{item.text}
-								</Link>
-							</li>
-						))}
-					</ul>
-				</nav>
-				<div className="justify-self-end">
-					{/* Cart button removed for portfolio */}
-				</div>
-			</div>
-		</header>
-	);
+// Initialize GSAP ScrollTrigger
+if (typeof window !== "undefined") {
+	gsap.registerPlugin(ScrollTrigger);
 }
 
 function SVGFilters() {
 	return (
-		<svg className="h-0 w-0">
+		<svg width="0" height="0" style={{ position: "absolute" }}>
 			<defs>
-				{Array.from({ length: 5 }).map((_, index) => (
-					<filter id={`squiggle-${index}`} key={index}>
+				{Array.from({ length: 5 }, (_, i) => (
+					<filter key={i} id={`noise-${i}`}>
 						<feTurbulence
-							baseFrequency="0.01"
-							id="turbulence"
-							numOctaves="2"
-							result="noise"
-							seed={index}
-						></feTurbulence>
-						<feDisplacementMap
-							id="displacement"
-							in2="noise"
-							in="SourceGraphic"
-							scale="4"
-						></feDisplacementMap>
+							type="fractalNoise"
+							baseFrequency="0.8"
+							numOctaves="4"
+							stitchTiles="stitch"
+						/>
+						<feColorMatrix type="saturate" values="0" />
+						<feBlend mode="multiply" in="SourceGraphic" />
 					</filter>
 				))}
 			</defs>
@@ -102,10 +50,41 @@ export default function RootLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	const [loading, setLoading] = useState(true);
+	
 	useEffect(() => {
 		const timer = setTimeout(() => setLoading(false), 1400);
 		return () => clearTimeout(timer);
 	}, []);
+
+	// Initialize Lenis smooth scrolling with GSAP integration
+	useEffect(() => {
+		if (typeof window === "undefined") return;
+
+		const lenis = new Lenis({
+			duration: 1.2,
+			easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
+			smooth: true,
+			mouseMultiplier: 1,
+			smoothTouch: false,
+			touchMultiplier: 2,
+			infinite: false,
+		});
+
+		// Integrate Lenis with GSAP ScrollTrigger
+		lenis.on('scroll', ScrollTrigger.update);
+
+		gsap.ticker.add((time) => {
+			lenis.raf(time * 1000);
+		});
+
+		gsap.ticker.lagSmoothing(0);
+
+		return () => {
+			lenis.destroy();
+			gsap.ticker.remove(lenis.raf);
+		};
+	}, []);
+
 	return (
 		<html lang="en">
 			<body

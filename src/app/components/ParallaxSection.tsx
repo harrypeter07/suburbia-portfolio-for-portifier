@@ -1,7 +1,6 @@
 'use client';
 import { useRef, useEffect, ReactNode, FC, Children, isValidElement, cloneElement } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
-import Lenis from '@studio-freight/lenis';
 
 interface ParallaxItemProps {
   children: ReactNode;
@@ -69,22 +68,6 @@ const ParallaxSection: FC<ParallaxSectionProps> = ({ children }) => {
     target: container,
     offset: ['start start', 'end end']
   });
-
-  // Initialize Lenis for smooth scrolling
-  useEffect(() => {
-    const lenis = new Lenis();
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-    
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
 
   const childrenArray = Children.toArray(children);
 

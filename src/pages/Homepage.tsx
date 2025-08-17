@@ -132,7 +132,7 @@ const ProductGrid = () => {
 			scrollTrigger: {
 				trigger: sectionRef.current,
 				start: "top top", // Start when top of section hits top of viewport
-				end: "+=300%", // Fixed scroll distance for consistent speed
+				end: "+=400%", // Increased scroll distance to ensure all projects are visible
 				scrub: 1, // Smooth scrubbing with consistent speed
 				pin: true, // Pin the section during animation
 				anticipatePin: 1, // Prevent glitchy pinning

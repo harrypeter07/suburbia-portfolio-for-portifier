@@ -202,7 +202,7 @@ const ProductGrid = () => {
 				<div className="w-full overflow-hidden py-8">
 					<div 
 						ref={cardsContainerRef}
-						className="flex gap-8"
+						className="flex gap-8 horizontal-scroll-container"
 					>
 						{projectData.map((project, index) => (
 							<div key={index} className="flex-shrink-0 w-full max-w-md">

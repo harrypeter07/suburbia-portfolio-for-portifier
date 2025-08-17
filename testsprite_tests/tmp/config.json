@@ -2,5 +2,15 @@
   "status": "commited",
   "type": "frontend",
   "scope": "codebase",
-  "localEndpoint": "http://localhost:3000"
+  "localEndpoint": "http://localhost:3000",
+  "executionArgs": {
+    "projectName": "subway-surfers",
+    "projectPath": "c:/Users/ASUS/Documents/SECOND SEMISTER/ANIMATION/subway-surfers",
+    "testIds": [],
+    "additionalInstruction": "Focus specifically on testing the parallax image section functionality, including mouse movement effects, image positioning, and scroll-based animations. Check for any visual glitches, performance issues, or broken interactions in the parallax components.",
+    "envs": {
+      "API_KEY": "sk-user-AlNgqDYkYvAHbRTZZp5kHDbGDA28gs9d_ywU4oFh7Wq5H5D3qxU7WwlNnqwq0NLzT0byUqkxn5tX0prPPplwbW20xs6iI69i_PLhuNPUDqu2OohtiAaXgIVo9ewjOVAIxD8"
+    }
+  },
+  "proxy": "http://d078a5a0-9220-4809-aab9-2884be0bbe34:eppgT6wgxi1VtksJZs5DupnhPcLl0wLd@tun.testsprite.com:8080"
 }

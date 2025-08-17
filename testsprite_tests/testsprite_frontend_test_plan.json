@@ -1,0 +1,328 @@
+[
+  {
+    "id": "TC001",
+    "title": "ParallaxSection Smooth Scroll Animation",
+    "description": "Verify that the ParallaxSection component creates smooth scaling animations for its child elements as the user scrolls through the page without any jitter or lag.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the homepage containing the ParallaxSection component"
+      },
+      {
+        "type": "action",
+        "description": "Slowly scroll through the page to trigger ParallaxSection animations"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that child elements within the ParallaxSection scale smoothly and the animation is free of lag or jitter"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "ParallaxImage Mouse Movement Interaction",
+    "description": "Test that the ParallaxImage component responds accurately to mouse movements by moving foreground and background images at different speeds.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the component containing the ParallaxImage"
+      },
+      {
+        "type": "action",
+        "description": "Move the mouse over the component in various directions and speeds"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify foreground and background layers move at different speeds corresponding to mouse position changes without flickering or jumps"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Horizontal Scrolling ProjectGrid with GSAP Animations",
+    "description": "Validate that the ProductGrid component scrolls horizontally smoothly and GSAP ScrollTrigger animations trigger correctly at the specified scroll positions.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the homepage ProductGrid section"
+      },
+      {
+        "type": "action",
+        "description": "Scroll horizontally through the project showcase area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify horizontal scrolling is fluid"
+      },
+      {
+        "type": "assertion",
+        "description": "Check animations trigger at intended scroll positions with smooth transitions"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Hero Section Animated Background and Layout",
+    "description": "Ensure the Hero section loads an animated background and content layout that appears as designed and without performance degradation.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Load homepage and observe the Hero section on initial display"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify animated background initiates correctly"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that main content layout is present and animated content elements (e.g. text, graphics) appear smoothly"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "TextType Typing Animation Accuracy and Timing",
+    "description": "Test the TextType component to verify the typing animation triggers, displays dynamically typed text correctly, and timing matches design specifications.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to a page or component section using the TextType component"
+      },
+      {
+        "type": "assertion",
+        "description": "Observe the typing animation for dynamic text"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify typing speed, pauses, and end timing correspond to design requirements"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "ProjectCard Display and Thematic Styling",
+    "description": "Verify the Skateboard-themed ProjectCard renders correctly with all project information displayed as expected and styling matches the skateboard aesthetic consistently.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the ProductGrid or any location displaying ProjectCards"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that all project cards show expected textual and visual content including images, titles, descriptions"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the skateboard theme styling including colors, fonts, and layout are consistent across all ProjectCards"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "ContactForm Input Validation and Submission",
+    "description": "Ensure the ContactForm component accepts valid user inputs, validates form fields properly, rejects invalid data with error messages, and submits successfully.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the ContactForm"
+      },
+      {
+        "type": "action",
+        "description": "Enter invalid data in all fields (e.g. empty, malformed email, special characters in text fields)"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Validate appropriate error messages are displayed preventing form submission"
+      },
+      {
+        "type": "action",
+        "description": "Enter valid data in all mandatory fields"
+      },
+      {
+        "type": "action",
+        "description": "Submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm form submission succeeds and user receives a success confirmation"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Lenis-based Smooth Scrolling Performance",
+    "description": "Verify the smooth scrolling implementation powered by Lenis provides fluid scrolling behavior across the entire page, especially at the end of scroll areas, without lag or slowdown.",
+    "category": "performance",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Load the homepage"
+      },
+      {
+        "type": "action",
+        "description": "Scroll through the entire page from top to bottom at varying speeds"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify scrolling is smooth with no noticeable jank, lag, or freezing including near the bottom of the page"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Responsive Design Across Devices and Screen Sizes",
+    "description": "Test UI elements and components render correctly and maintain usability across multiple screen sizes and device types including desktop, tablet, and mobile.",
+    "category": "ui",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Access the website using various emulated device resolutions and physical devices"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify all components including ParallaxSection, ProductGrid, Hero, ContactForm, and navigation adapt layouts and remain fully functional"
+      },
+      {
+        "type": "assertion",
+        "description": "Check for no content overlap, clipping, or broken styling caused by responsive design"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Reusable Heading and ButtonLink Consistency",
+    "description": "Verify the Heading and ButtonLink components are used consistently across the website providing uniform styling, correct sizes, and interaction behaviors.",
+    "category": "ui",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Browse through multiple pages and sections utilizing the Heading and ButtonLink components"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm headings use correct sizes and styles as defined in the reusable component"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that all ButtonLink instances behave as clickable links with consistent styling and hover/focus states"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "ScrollTrigger GSAP Animation Trigger Points Accuracy",
+    "description": "Validate GSAP ScrollTrigger animations start and end precisely at their intended scroll positions for all components using this library.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the ProductGrid and other animated sections on homepage"
+      },
+      {
+        "type": "action",
+        "description": "Scroll slowly through areas triggering GSAP animations"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify animations start exactly when expected and complete according to design without premature or delayed triggering"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Footer Component Rendering and Content Verification",
+    "description": "Ensure the footer component is present at the bottom of the page with correct branding, navigation links, and consistent styling.",
+    "category": "ui",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Scroll to the bottom of the homepage"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify footer is visible and correctly styled"
+      },
+      {
+        "type": "assertion",
+        "description": "Check that all expected links and branding elements are present and functional"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Error Handling on Form Network Failure",
+    "description": "Test ContactForm behavior when network issues prevent form submission, ensuring error messages are displayed and the user can retry.",
+    "category": "error handling",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Fill in valid data in ContactForm"
+      },
+      {
+        "type": "action",
+        "description": "Simulate network failure or disconnect before submitting form"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the form"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm user is notified of submission failure with a clear error message"
+      },
+      {
+        "type": "action",
+        "description": "Reconnect network and resubmit form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify form submission succeeds after retry"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Custom CSS and Animation Performance Optimization",
+    "description": "Verify that custom CSS animations and Tailwind CSS utility-based styles do not cause performance degradation, slowdowns, or visual glitches, particularly when combined with complex scroll animations.",
+    "category": "performance",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Load pages implementing heavy CSS animations together with scroll and mouse-based animations"
+      },
+      {
+        "type": "action",
+        "description": "Scroll and interact with animations extensively"
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm no dropped frames, jank, or performance bottlenecks occur during animations"
+      }
+    ]
+  }
+]

@@ -117,7 +117,6 @@ const ProductGrid = () => {
 
 		// Calculate the total width needed for all projects
 		const totalProjects = projectData.length;
-		const cardsPerView = 4; // Number of cards visible at once
 		const cardWidth = 400; // Approximate width of each card including gap
 		const totalWidth = totalProjects * cardWidth;
 		const viewportWidth = window.innerWidth;
@@ -138,12 +137,7 @@ const ProductGrid = () => {
 				markers: false, // Disable markers for production
 				fastScrollEnd: true, // Better performance for fast scrolling
 				preventOverlaps: true, // Prevent overlapping triggers
-				onUpdate: (self) => {
-					// Ensure smooth scrolling with Lenis
-					if (window.lenis) {
-						window.lenis.raf();
-					}
-				}
+
 			}
 		});
 

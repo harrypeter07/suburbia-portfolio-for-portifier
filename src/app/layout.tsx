@@ -60,7 +60,7 @@ export default function RootLayout({
 	useEffect(() => {
 		if (typeof window === "undefined") return;
 
-		let lenis: any = null;
+		let lenis: Lenis | null = null;
 
 		// Wrap in try-catch to handle any initialization errors
 		try {

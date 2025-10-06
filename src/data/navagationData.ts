@@ -11,7 +11,7 @@ export const navigationData = {
 	},
 	navigation: [
 		{ text: "Home", link: "/" },
-		{ text: "Projects", link: "/#projects" },
+		{ text: "hassan", link: "/#projects" },
 		{ text: "About", link: "/about" },
 		{ text: "Contact", link: "/#contact" },
 	],
